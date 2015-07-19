@@ -1,9 +1,9 @@
 
-package proyectofinal;
+package rutaalmacenes.logic;
 
 /**
  *
- * @author LILY
+ * @author CDJ
  * @param <T>
  */
 public class Grafo<T> implements InterfazGrafo<T> {
@@ -105,7 +105,7 @@ public class Grafo<T> implements InterfazGrafo<T> {
     }
     
     @Override
-    public void InsertarArco(T v1, T v2) throws Exception //Daniel, método de Liango
+    public void InsertarArco(T v1, T v2) throws Exception //, método de Liango
     {
         int p1 = PosicionDelVertice(v1);
         int p2 = PosicionDelVertice(v2);
@@ -294,7 +294,7 @@ public class Grafo<T> implements InterfazGrafo<T> {
         return result;
     }
     
-    public void MostrarGrafo() throws Exception //Daniel
+    public void MostrarGrafo() throws Exception //
     {
         for (int i=0; i<lista.Longitud(); i++)
         {

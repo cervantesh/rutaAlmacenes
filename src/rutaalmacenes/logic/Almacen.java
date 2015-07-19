@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectofinal;
+package rutaalmacenes.logic;
 
 import java.sql.Time;
 
 /**
  *
- * @author Daniel
+ * @author CDJ
  */
 public class Almacen
 {
@@ -17,7 +17,7 @@ public class Almacen
     private String ciudad;
     private Time horaDeApertura;
 
-    public Almacen(String ID, String ciudad, Time horaDeApertura) //Daniel
+    public Almacen(String ID, String ciudad, Time horaDeApertura) //
     {
         this.ID = ID;
         this.ciudad = ciudad;

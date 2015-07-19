@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectofinal;
+package rutaalmacenes.logic;
 
 /**
  *
- * @author 
+ * @author CDJ
  * @param <T>
  */
 
@@ -43,7 +43,7 @@ public class ListaSE<T> implements InterfazLista<T>
 
         @Override
 	public void Adicionar(T objeto) {
-		NodoSE<T> nuevo = new NodoSE<T>(objeto);
+		NodoSE<T> nuevo = new NodoSE<>(objeto);
 		if (EsVacia())
 			cabeza = nuevo;
 		else {
@@ -77,7 +77,7 @@ public class ListaSE<T> implements InterfazLista<T>
 	public void Insertar(T objeto, int pos) throws Exception {
 		if (pos < 0 || pos >= Longitud())
 			throw new Exception("Posición fuera de rango");
-		NodoSE<T> nuevo = new NodoSE<T>(objeto);
+		NodoSE<T> nuevo = new NodoSE<>(objeto);
 		if (pos == 0) {
 			nuevo.setSiguiente(cabeza);
 			cabeza = nuevo;
