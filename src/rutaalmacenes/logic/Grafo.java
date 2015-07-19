@@ -70,39 +70,6 @@ public class Grafo<T> implements InterfazGrafo<T> {
 	adyacencia.Adicionar(new ListaSE<Integer>());
         }
     }
-    /*******/
-
-    @Override
-    public void EliminarVertice(T v) throws Exception {
-        int p = PosicionDelVertice(v);
-        if (p != -1)
-        {
-            ListaSE<Integer> adyac = adyacencia.Obtener(p);
-            for(int i = 0; i < adyac.Longitud(); i++)
-                EliminarArco(v, lista.Obtener(adyac.Obtener(i)));
-            adyacencia.Eliminar(p);
-            lista.Eliminar(p);
-            
-            int aux;
-            
-            for(int i = 0; i < adyacencia.Longitud(); i++)
-            {
-                adyac = adyacencia.Obtener(i);
-                for(int j = 0; j < adyac.Longitud(); j++) {
-                    aux = adyac.Obtener(j);
-                    if(aux > p) {
-                       adyac.Eliminar(j);
-                       if(!adyac.EsVacia())
-                         adyac.Insertar(aux-1, j);
-                       else
-                         adyac.Adicionar(aux-1);
-                    }
-                }
-            }
-        }
-        else    
-            throw new IllegalArgumentException();
-    }
     
     @Override
     public void InsertarArco(T v1, T v2) throws Exception //, método de Liango
@@ -122,6 +89,45 @@ public class Grafo<T> implements InterfazGrafo<T> {
         else    
             throw new IllegalArgumentException();
     }
+    
+    //Metodo liango
+    @Override
+    public void EliminarVertice(T v) throws Exception //Daniel
+    {
+        int p = PosicionDelVertice(v);
+        if (p != -1)
+        {
+            ListaSE<Integer> adyac = adyacencia.Obtener(p);
+            for(int i = 0; i < lista.Longitud(); i++)
+            {
+                if(!adyac.EsVacia())
+                    EliminarArco(v, lista.Obtener(i));
+            }
+                
+            adyacencia.Eliminar(p);
+            lista.Eliminar(p);
+            
+            int aux;
+            
+            for(int i = 0; i < adyacencia.Longitud(); i++)
+            {
+                adyac = adyacencia.Obtener(i);
+                for(int j = 0; j < adyac.Longitud(); j++) {
+                    aux = adyac.Obtener(0);
+                    adyac.Eliminar(0);
+                    if(aux > p) {
+                        adyac.Adicionar(aux-1);
+                    }
+                    else{
+                        adyac.Adicionar(aux);
+                    }
+                }
+            }
+        }
+        else    
+            throw new IllegalArgumentException();
+    }
+
 
 //    @Override
 //    public void EliminarVertice(T v) throws Exception {
