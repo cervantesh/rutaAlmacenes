@@ -90,7 +90,6 @@ public class Grafo<T> implements InterfazGrafo<T> {
             throw new IllegalArgumentException();
     }
     
-    //Metodo liango
     @Override
     public void EliminarVertice(T v) throws Exception //Daniel
     {
@@ -100,8 +99,11 @@ public class Grafo<T> implements InterfazGrafo<T> {
             ListaSE<Integer> adyac = adyacencia.Obtener(p);
             for(int i = 0; i < lista.Longitud(); i++)
             {
-                if(!adyac.EsVacia())
-                    EliminarArco(v, lista.Obtener(i));
+                /*Validacion agregada, antes lanzaba excepcion si no habia caminos, 
+                si habia un bucle o era el ultimo vertice.
+                */
+                if(!adyac.EsVacia() && EstaElArco(v, lista.Obtener(i)))
+                    EliminarArco(v, lista.Obtener(i));                
             }
                 
             adyacencia.Eliminar(p);
@@ -127,39 +129,6 @@ public class Grafo<T> implements InterfazGrafo<T> {
         else    
             throw new IllegalArgumentException();
     }
-
-
-//    @Override
-//    public void EliminarVertice(T v) throws Exception {
-//        int p = PosicionDelVertice(v);
-//        if (p != -1)
-//        {
-//            ListaSE<Integer> adyac = adyacencia.Obtener(p);
-//            for(int i = 0; i < lista.Longitud(); i++)
-//                EliminarArco(v, lista.Obtener(i));
-//            adyacencia.Eliminar(p);
-//            lista.Eliminar(p);
-//            
-//            int aux;
-//            
-//            for(int i = 0; i < adyacencia.Longitud(); i++)
-//            {
-//                adyac = adyacencia.Obtener(i);
-//                for(int j = 0; j < adyac.Longitud(); j++) {
-//                    aux = adyac.Obtener(0);
-//                    adyac.Eliminar(0);
-//                    if(aux > p) {
-//                        adyac.Adicionar(aux-1);
-//                    }
-//                    else{
-//                        adyac.Adicionar(aux);
-//                    }
-//                }
-//            }
-//        }
-//        else    
-//            throw new IllegalArgumentException();
-//    }
 
     @Override
     public void EliminarArco(T v1, T v2) throws Exception {
