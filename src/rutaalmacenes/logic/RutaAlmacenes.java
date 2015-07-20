@@ -5,9 +5,6 @@
  */
 package rutaalmacenes.logic;
 import java.time.LocalTime;
-import java.sql.Time;
-
-
 
 /**
  *
@@ -24,25 +21,28 @@ public class RutaAlmacenes
     {
         Grafo<Almacen> Almacenes=new Grafo<>();
         
-        /*
-        Time t1;
-        t1 = new Time(12, 50, 5);
-        Time t2;
-        t2 = new Time(8, 20, 0);
-        */
         LocalTime  t1, t2;
         t1 = LocalTime.of(12, 50);
         t2 = LocalTime.of(8, 20);
         
+        LocalTime time1=LocalTime.of(5, 0);
+        LocalTime time2=LocalTime.of(4, 0);
+        
 
         Almacen a1=new Almacen("SD", "Sto Dgo", t1);
         Almacen a2=new Almacen("ST", "Santiago", t2);
+        Almacen a3=new Almacen("PT", "Puerto Plata", t1);
         
         Almacenes.InsertarVertice(a1);
         Almacenes.InsertarVertice(a2);
-        Almacenes.InsertarArco(a1, a1);
-        Almacenes.InsertarArco(a2, a2);
-        Almacenes.InsertarArco(a1, a2);
+        Almacenes.InsertarVertice(a3);
+        Almacenes.InsertarArco(a1, a1, time1);
+        Almacenes.InsertarArco(a2, a2, time2);
+        Almacenes.InsertarArco(a1, a2, time1);
+        Almacenes.InsertarArco(a3, a3, time2);
+        Almacenes.InsertarArco(a1, a3, time2);
+        Almacenes.EliminarArco(a1, a2);
+        Almacenes.EliminarVertice(a3);
         
         System.out.println("Almacenes:");
         Almacenes.MostrarGrafo();
