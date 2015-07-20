@@ -81,7 +81,7 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
             }
         });
 
-        jsMinutos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 12, 1));
+        jsMinutos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
         jsHora.setModel(new javax.swing.SpinnerNumberModel(8, 1, 12, 1));
 
@@ -167,8 +167,8 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
             
             Almacen a;
             a = new Almacen(
+                    tfIdentificador.getText(),
                     tfNombre.getText(),
-                    tfIdentificador.getText(), 
                     LocalTime.of(hora, minutos)
             );
             

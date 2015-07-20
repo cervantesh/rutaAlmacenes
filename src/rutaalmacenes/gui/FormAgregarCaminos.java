@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package rutaalmacenes.gui;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import rutaalmacenes.logic.*;
 
 /**
  *
@@ -14,9 +17,18 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
     /**
      * Creates new form FormManipulacionAlmacen
      */
-    public FormAgregarCaminos() {
+    
+    Object ob;
+    
+    public FormAgregarCaminos(Object ob) {
         initComponents();
         aplicarFormatos();
+        this.ob = ob;
+        try {
+            llenarComboBoxesForm(cbInicio, cbDestino, ob);
+        } catch (Exception ex) {
+            Logger.getLogger(FormAgregarCaminos.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
     
@@ -61,6 +73,11 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
         });
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         cbInicio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -125,43 +142,19 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
+    
+    private void llenarComboBoxesForm(javax.swing.JComboBox jc1,javax.swing.JComboBox jc2, Object ob) throws Exception
+    {
+        AyudaGUI.llenarComboBox(jc1, (Grafo) ob);
+        AyudaGUI.llenarComboBox(jc2, (Grafo) ob);
+    }
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarCaminos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarCaminos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarCaminos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarCaminos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormAgregarCaminos().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

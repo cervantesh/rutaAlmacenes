@@ -9,8 +9,6 @@ package rutaalmacenes.logic;
 public class Grafo<T> implements InterfazGrafo<T> {
     
     private ListaSE<T> lista;
-
-    
     private ListaSE<ListaSE<Integer>> adyacencia;
     
     public ListaSE<T> getLista() {
@@ -297,5 +295,10 @@ public class Grafo<T> implements InterfazGrafo<T> {
             else
                 System.out.println("  No tiene almacenes adyacentes");
         }
+    }
+    
+    public boolean existenArcos() throws Exception
+    {
+        return NumeroDeArcos() > 0; 
     }
 }

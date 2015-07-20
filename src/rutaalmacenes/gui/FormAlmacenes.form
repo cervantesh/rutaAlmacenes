@@ -202,7 +202,7 @@
               <Table columnCount="7" rowCount="4">
                 <Column editable="true" title="#" type="java.lang.Integer"/>
                 <Column editable="true" title="Identificador" type="java.lang.String"/>
-                <Column editable="true" title="Nombre" type="java.lang.String"/>
+                <Column editable="true" title="Ciudad" type="java.lang.String"/>
                 <Column editable="true" title="Hora Inicio" type="java.lang.Object"/>
                 <Column editable="true" title="Caminos" type="java.lang.String"/>
                 <Column editable="true" title="Tiempo" type="java.lang.Object"/>

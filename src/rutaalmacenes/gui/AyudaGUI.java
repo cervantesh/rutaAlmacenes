@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 package rutaalmacenes.gui;
+import rutaalmacenes.logic.*;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+
 
 /**
  *
@@ -28,28 +30,18 @@ public class AyudaGUI {
     }
         
     
-    private void llenarComboBox(javax.swing.JComboBox jc)//, Residencial res)
+    static public void llenarComboBox(javax.swing.JComboBox jc, Grafo  grafo) throws Exception
     {
-        /*
-        javax.swing.DefaultComboBoxModel model = new javax.swing.DefaultComboBoxModel();
-      //  Edificio  aux = null;
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        Object  aux = null;
         
-        if (res!=null) 
-            for (int i = 0; i < res.getCantidadEdificios(); i++) {
-
-                
-            try {
-                aux = res.getResidencial().getLista().obtener(i);
-            } catch (Exception ex) {
-                Logger.getLogger(FormAgregarCamino.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-
+        if (grafo!=null) 
+            for (int i = 0; i < grafo.getLista().Longitud(); i++) {
+                aux = grafo.getLista().Obtener(i);
                 model.addElement(aux);
 
             }
         jc.setModel(model);
-        */
        
     }
                 

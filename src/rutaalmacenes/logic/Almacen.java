@@ -15,13 +15,13 @@ import java.time.LocalTime;
 public class Almacen
 {
     private String id;
-    private String nombre;
+    private String ciudad;
     private LocalTime horaDeApertura;
 
     public Almacen(String ID, String nombre, LocalTime horaDeApertura) //
     {
         this.id = ID;
-        this.nombre = nombre;
+        this.ciudad = nombre;
         this.horaDeApertura = horaDeApertura;
     }
 
@@ -32,7 +32,7 @@ public class Almacen
 
     public String getNombre()
     {
-        return nombre;
+        return ciudad;
     }
 
     public LocalTime getHoraDeApertura()
@@ -43,7 +43,7 @@ public class Almacen
     @Override
     public String toString()
     {
-        return "ID: " + id + ". " + nombre + ". Hora de apertura: " + horaDeApertura;
+        return "ID: " + id + ". " + ciudad + ". Hora de apertura: " + horaDeApertura;
     }
     
 }

@@ -21,11 +21,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
      * Creates new form FormAlmacenes
      */
     
-    /**
-     * Aqui se guardaran todos los almacenes
-     */
     private Grafo <Almacen> almacenes;
-    
     
     public FormAlmacenes() {
         initComponents();
@@ -44,6 +40,8 @@ public class FormAlmacenes extends javax.swing.JFrame {
     
     private void aplicarFormatoGrid()
     {
+        // se reduce y se el tamano del ancho de la columna a 30 bajo la 
+        // suposicion que no nunca se excederan los numero de 3 digitos 
         javax.swing.table.TableColumn columnaNumero = tablaAlmacenes.getColumnModel().getColumn(0);
         columnaNumero.setMaxWidth(30);
         columnaNumero.setMinWidth(30);
@@ -102,7 +100,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "#", "Identificador", "Nombre", "Hora Inicio", "Caminos", "Tiempo", "Aislado"
+                "#", "Identificador", "Ciudad", "Hora Inicio", "Caminos", "Tiempo", "Aislado"
             }
         ) {
             Class[] types = new Class [] {
@@ -269,7 +267,15 @@ public class FormAlmacenes extends javax.swing.JFrame {
 
     private void menuCaminosAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosAgregarActionPerformed
         // TODO add your handling code here:
-        new FormAgregarCaminos().setVisible(true);
+        if (validarAgregarCamino(almacenes)) {
+            new FormAgregarCaminos(almacenes).setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "Para agregar camino ingresar al menos dos almacenes");
+        }
+        
     }//GEN-LAST:event_menuCaminosAgregarActionPerformed
 
     private void menuAlmacenesAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesAgregarActionPerformed
@@ -278,18 +284,44 @@ public class FormAlmacenes extends javax.swing.JFrame {
     }//GEN-LAST:event_menuAlmacenesAgregarActionPerformed
 
     private void menuAlmacenesModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesModificarActionPerformed
-        // TODO add your handling code here:
-        new FormModificarAlmacen().setVisible(true);
+        if (validarModificarNodo(almacenes)) {
+            new FormModificarAlmacen().setVisible(true);
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(rootPane, 
+                     "Debe ingresa al menos un almacen para realizar modificaciones");
+        }
+        
     }//GEN-LAST:event_menuAlmacenesModificarActionPerformed
 
     private void menuAlmacenesEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesEliminarActionPerformed
-        // TODO add your handling code here:
-        new FormEliminarAlmacen().setVisible(true);
+        
+        if (validarEliminarNodo(almacenes)) {
+            new FormEliminarAlmacen().setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "No existen almacenes que se puedan eliminar");
+        }
     }//GEN-LAST:event_menuAlmacenesEliminarActionPerformed
 
     private void menuCaminosModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosModificarActionPerformed
-        // TODO add your handling code here:
-        new FormModificarCaminos().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            if (validarModificarCamino(almacenes)) {
+                new FormModificarCaminos().setVisible(true);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rootPane,
+                        "No existen caminos para modificar");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_menuCaminosModificarActionPerformed
 
     private void menuCaminosVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosVerActionPerformed
@@ -369,6 +401,32 @@ public class FormAlmacenes extends javax.swing.JFrame {
         });
     }
     
+    
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuBar menu;
+    private javax.swing.JMenu menuAlmacenes;
+    private javax.swing.JMenuItem menuAlmacenesAgregar;
+    private javax.swing.JMenuItem menuAlmacenesEliminar;
+    private javax.swing.JMenuItem menuAlmacenesModificar;
+    private javax.swing.JMenu menuArchivo;
+    private javax.swing.JMenuItem menuArchivoCerrar;
+    private javax.swing.JMenu menuAyuda;
+    private javax.swing.JMenuItem menuAyudaCreditos;
+    private javax.swing.JMenu menuCaminos;
+    private javax.swing.JMenuItem menuCaminosAgregar;
+    private javax.swing.JMenuItem menuCaminosEliminar;
+    private javax.swing.JMenuItem menuCaminosModificar;
+    private javax.swing.JMenuItem menuCaminosVer;
+    private javax.swing.JMenuItem menuHerramientaCalcularRutaOptima;
+    private javax.swing.JMenu menuHerramientas;
+    public static javax.swing.JTable tablaAlmacenes;
+    // End of variables declaration//GEN-END:variables
+
+    
+    
     static public void updateGrid(javax.swing.JTable tabla, Grafo<Almacen> almacenes) throws Exception
     {
         DefaultTableModel model;
@@ -380,7 +438,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
         }
  
     }
-    
     
     static private void updateGridLine(Grafo<Almacen> almacenes, DefaultTableModel model, int i ) throws Exception
     {
@@ -405,27 +462,29 @@ public class FormAlmacenes extends javax.swing.JFrame {
             model.addRow(new Object[]{i+1, id, nombre, horaInicio, caminos, tiempos, aislado});
         }
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuBar menu;
-    private javax.swing.JMenu menuAlmacenes;
-    private javax.swing.JMenuItem menuAlmacenesAgregar;
-    private javax.swing.JMenuItem menuAlmacenesEliminar;
-    private javax.swing.JMenuItem menuAlmacenesModificar;
-    private javax.swing.JMenu menuArchivo;
-    private javax.swing.JMenuItem menuArchivoCerrar;
-    private javax.swing.JMenu menuAyuda;
-    private javax.swing.JMenuItem menuAyudaCreditos;
-    private javax.swing.JMenu menuCaminos;
-    private javax.swing.JMenuItem menuCaminosAgregar;
-    private javax.swing.JMenuItem menuCaminosEliminar;
-    private javax.swing.JMenuItem menuCaminosModificar;
-    private javax.swing.JMenuItem menuCaminosVer;
-    private javax.swing.JMenuItem menuHerramientaCalcularRutaOptima;
-    private javax.swing.JMenu menuHerramientas;
-    public static javax.swing.JTable tablaAlmacenes;
-    // End of variables declaration//GEN-END:variables
     
+    private boolean validarAgregarCamino(Grafo grafo)
+    {
+        return grafo.getLista().Longitud() > 1;
+    }
+    
+    private boolean validarModificarNodo(Grafo grafo)
+    {
+        return !grafo.EsVacio();
+    }
+    
+    private boolean validarEliminarNodo(Grafo grafo)
+    {
+        return !grafo.EsVacio();
+    }
+    
+    private boolean validarModificarCamino(Grafo grafo) throws Exception {
+        if (!validarAgregarCamino(grafo)|| !grafo.existenArcos()) {
+            
+            return false;
+        }
+        
+        return true;
+        
+    }
 }
