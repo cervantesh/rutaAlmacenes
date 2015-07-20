@@ -5,21 +5,34 @@
  */
 package rutaalmacenes.logic;
 
+import java.time.LocalTime;
+
 /**
  *
  * @author CDJ
  */
 public class NodoAP//
 {
-    private Integer posicion;
-    private Integer tiempoRecorrido;
-
-    public Integer getPosicion()
+    private Integer adyacencia;
+    private LocalTime tiempoRecorrido;
+    
+    public NodoAP()
     {
-        return posicion;
+        this.tiempoRecorrido=LocalTime.of(0, 0);
     }
 
-    public Integer getTiempoRecorrido()
+    public NodoAP(Integer posicion, LocalTime tiempoRecorrido)
+    {
+        this.adyacencia = posicion;
+        this.tiempoRecorrido = tiempoRecorrido;
+    }
+    
+    public Integer getAdyacencia()
+    {
+        return adyacencia;
+    }
+
+    public LocalTime getTiempoRecorrido()
     {
         return tiempoRecorrido;
     }

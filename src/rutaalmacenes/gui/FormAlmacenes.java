@@ -479,7 +479,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
     }
     
     private boolean validarModificarCamino(Grafo grafo) throws Exception {
-        if (!validarAgregarCamino(grafo)|| !grafo.existenArcos()) {
+        if (!validarAgregarCamino(grafo)|| !grafo.ExistenArcos()) {
             
             return false;
         }

@@ -21,6 +21,12 @@ public class RutaAlmacenes
     {
         Grafo<Almacen> Almacenes=new Grafo<>();
         
+        /*
+        Time t1;
+        t1 = new Time(12, 50, 5);
+        Time t2;
+        t2 = new Time(8, 20, 0);
+        */
         LocalTime  t1, t2;
         t1 = LocalTime.of(12, 50);
         t2 = LocalTime.of(8, 20);
