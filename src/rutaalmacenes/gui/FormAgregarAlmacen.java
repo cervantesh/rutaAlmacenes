@@ -4,6 +4,13 @@
  * and open the template in the editor.
  */
 package rutaalmacenes.gui;
+import java.sql.Time;
+import java.time.LocalTime;
+import rutaalmacenes.logic.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,16 +21,19 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
     /**
      * Creates new form FormManipulacionAlmacen
      */
-    public FormAgregarAlmacen() {
+    Object ob;
+    
+    
+    public FormAgregarAlmacen(Object ob) {
         initComponents();
         aplicarFormatos();
-
+        this.ob = ob;
+        
     }
     
     private void aplicarFormatos()
     {
-        setLocationRelativeTo(null);
-                
+        setLocationRelativeTo(null);  
     }
     
   
@@ -41,10 +51,12 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
         tfIdentificador = new javax.swing.JFormattedTextField();
         tfNombre = new javax.swing.JFormattedTextField();
         lbNombre = new javax.swing.JLabel();
-        tfNombre1 = new javax.swing.JFormattedTextField();
         lbHoraInicio = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        jsMinutos = new javax.swing.JSpinner();
+        jsHora = new javax.swing.JSpinner();
+        jsMomento = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Almacen");
@@ -63,29 +75,45 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
         });
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        jsMinutos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 12, 1));
+
+        jsHora.setModel(new javax.swing.SpinnerNumberModel(8, 1, 12, 1));
+
+        jsMomento.setModel(new javax.swing.SpinnerListModel(new String[] {"AM", "PM"}));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbNombre)
-                    .addComponent(lbHoraInicio)
-                    .addComponent(lbId))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAgregar)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAgregar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbNombre)
+                            .addComponent(lbHoraInicio)
+                            .addComponent(lbId))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jsHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jsMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jsMomento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfNombre)
+                            .addComponent(tfIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,12 +131,12 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
                         .addComponent(lbNombre))
                     .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lbHoraInicio))
-                    .addComponent(tfNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbHoraInicio)
+                    .addComponent(jsHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jsMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jsMomento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btnAgregar))
@@ -125,50 +153,79 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        if (esValidaEntradaDatos(tfNombre.getText(),tfIdentificador.getText())) {
+            
+            int hora,minutos;
+            
+            hora= (int) jsHora.getValue();
+            minutos = (int) jsMinutos.getValue();
+            
+            if (jsMomento.getValue() == "PM") {
+                hora += 12;
+            }
+            
+            Almacen a;
+            a = new Almacen(
+                    tfNombre.getText(),
+                    tfIdentificador.getText(), 
+                    LocalTime.of(hora, minutos)
+            );
+            
+            try {
+                ((Grafo <Almacen>) ob).InsertarVertice(a);
+                JOptionPane.showMessageDialog(rootPane, "Almacen Agregado Exitosamente");
+                this.dispose();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex);
+            }
+        }  
+        try {
+            FormAlmacenes.updateGrid(FormAlmacenes.tablaAlmacenes , (Grafo<Almacen>) ob);
+        } catch (Exception ex) {
+            Logger.getLogger(FormAgregarAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+    
+    
+    
+    //Metodos CDJ
+    private boolean esValidaEntradaDatos(String tfNombre,String tfIdentificador)
+    {
+        try {
+            if (AyudaGUI.esVacio(tfNombre) ||  
+                AyudaGUI.esVacio(tfIdentificador))
+            {
+                JOptionPane.showMessageDialog(rootPane, "Ingrese todos los datos");
+                return false;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FormAgregarAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (tfIdentificador.contains(" ")) {
+            JOptionPane.showMessageDialog(rootPane, "El Identificador no debe tener espacios en blanco");
+            return false;
+        }
+        
+        return true;
+    }
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormAgregarAlmacen().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JSpinner jsHora;
+    private javax.swing.JSpinner jsMinutos;
+    private javax.swing.JSpinner jsMomento;
     private javax.swing.JLabel lbHoraInicio;
     private javax.swing.JLabel lbId;
     private javax.swing.JLabel lbNombre;
     private javax.swing.JFormattedTextField tfIdentificador;
     private javax.swing.JFormattedTextField tfNombre;
-    private javax.swing.JFormattedTextField tfNombre1;
     // End of variables declaration//GEN-END:variables
 }
