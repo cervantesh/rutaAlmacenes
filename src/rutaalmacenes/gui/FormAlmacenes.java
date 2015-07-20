@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 package rutaalmacenes.gui;
+import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import rutaalmacenes.logic.*;
 
 /**
  *
@@ -14,10 +20,19 @@ public class FormAlmacenes extends javax.swing.JFrame {
     /**
      * Creates new form FormAlmacenes
      */
+    
+    /**
+     * Aqui se guardaran todos los almacenes
+     */
+    private Grafo <Almacen> almacenes;
+    
+    
     public FormAlmacenes() {
         initComponents();
         aplicarFormatos();
-
+        
+        almacenes = new Grafo<>();
+             
     }
     
     private void aplicarFormatos()
@@ -68,6 +83,16 @@ public class FormAlmacenes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("[Menu Principal]- Lista Almacenes");
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         tablaAlmacenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,7 +106,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -90,6 +115,11 @@ public class FormAlmacenes extends javax.swing.JFrame {
         });
         tablaAlmacenes.setToolTipText("");
         tablaAlmacenes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tablaAlmacenes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tablaAlmacenesFocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaAlmacenes);
 
         menu.setAutoscrolls(true);
@@ -244,7 +274,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
 
     private void menuAlmacenesAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesAgregarActionPerformed
         // TODO add your handling code here:
-        new FormAgregarAlmacen().setVisible(true);
+        new FormAgregarAlmacen(almacenes).setVisible(true);
     }//GEN-LAST:event_menuAlmacenesAgregarActionPerformed
 
     private void menuAlmacenesModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesModificarActionPerformed
@@ -276,6 +306,33 @@ public class FormAlmacenes extends javax.swing.JFrame {
         // TODO add your handling code here:
         new FormEliminarCamino().setVisible(true);
     }//GEN-LAST:event_menuCaminosEliminarActionPerformed
+
+    private void tablaAlmacenesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tablaAlmacenesFocusLost
+        try {
+            // TODO add your handling code here:
+            updateGrid(tablaAlmacenes, almacenes);
+        } catch (Exception ex) {
+            Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tablaAlmacenesFocusLost
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        try {
+            // TODO add your handling code here:
+            updateGrid(tablaAlmacenes, almacenes);
+        } catch (Exception ex) {
+            Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formFocusGained
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            // TODO add your handling code here:
+            updateGrid(tablaAlmacenes, almacenes);
+        } catch (Exception ex) {
+            Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -311,6 +368,43 @@ public class FormAlmacenes extends javax.swing.JFrame {
             }
         });
     }
+    
+    static public void updateGrid(javax.swing.JTable tabla, Grafo<Almacen> almacenes) throws Exception
+    {
+        DefaultTableModel model;
+        model = (DefaultTableModel) tabla.getModel();
+        model.setRowCount(0);
+        
+        for (int i = 0; i < almacenes.getLista().Longitud(); i++) {
+            updateGridLine( almacenes,model,i );
+        }
+ 
+    }
+    
+    
+    static private void updateGridLine(Grafo<Almacen> almacenes, DefaultTableModel model, int i ) throws Exception
+    {
+        Almacen almacen;
+        String id =" ",
+               nombre = " ",
+               caminos =" ",
+               tiempos = " ",
+               aislado = " ";
+        
+        LocalTime horaInicio = null;
+        
+        if (almacenes!=null) {
+
+                almacen = almacenes.getLista().Obtener(i);
+                
+                id = almacen.getID();
+                nombre = almacen.getNombre();
+                horaInicio = almacen.getHoraDeApertura();
+                
+            
+            model.addRow(new Object[]{i+1, id, nombre, horaInicio, caminos, tiempos, aislado});
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -331,6 +425,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCaminosVer;
     private javax.swing.JMenuItem menuHerramientaCalcularRutaOptima;
     private javax.swing.JMenu menuHerramientas;
-    private javax.swing.JTable tablaAlmacenes;
+    public static javax.swing.JTable tablaAlmacenes;
     // End of variables declaration//GEN-END:variables
+    
 }

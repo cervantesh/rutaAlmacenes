@@ -5,7 +5,8 @@
  */
 package rutaalmacenes.logic;
 
-import java.sql.Time;
+import java.time.LocalTime;
+
 
 /**
  *
@@ -13,28 +14,28 @@ import java.sql.Time;
  */
 public class Almacen
 {
-    private String ID;
-    private String ciudad;
-    private Time horaDeApertura;
+    private String id;
+    private String nombre;
+    private LocalTime horaDeApertura;
 
-    public Almacen(String ID, String ciudad, Time horaDeApertura) //
+    public Almacen(String ID, String nombre, LocalTime horaDeApertura) //
     {
-        this.ID = ID;
-        this.ciudad = ciudad;
+        this.id = ID;
+        this.nombre = nombre;
         this.horaDeApertura = horaDeApertura;
     }
 
     public String getID()
     {
-        return ID;
+        return id;
     }
 
-    public String getCiudad()
+    public String getNombre()
     {
-        return ciudad;
+        return nombre;
     }
 
-    public Time getHoraDeApertura()
+    public LocalTime getHoraDeApertura()
     {
         return horaDeApertura;
     }
@@ -42,7 +43,7 @@ public class Almacen
     @Override
     public String toString()
     {
-        return "ID: " + ID + ". " + ciudad + ". Hora de apertura: " + horaDeApertura;
+        return "ID: " + id + ". " + nombre + ". Hora de apertura: " + horaDeApertura;
     }
     
 }

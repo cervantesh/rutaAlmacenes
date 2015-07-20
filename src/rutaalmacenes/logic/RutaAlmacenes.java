@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package rutaalmacenes.logic;
-
+import java.time.LocalTime;
 import java.sql.Time;
+
+
 
 /**
  *
@@ -21,11 +23,18 @@ public class RutaAlmacenes
     public static void main(String[] args) throws Exception
     {
         Grafo<Almacen> Almacenes=new Grafo<>();
+        
+        /*
         Time t1;
         t1 = new Time(12, 50, 5);
         Time t2;
         t2 = new Time(8, 20, 0);
+        */
+        LocalTime  t1, t2;
+        t1 = LocalTime.of(12, 50);
+        t2 = LocalTime.of(8, 20);
         
+
         Almacen a1=new Almacen("SD", "Sto Dgo", t1);
         Almacen a2=new Almacen("ST", "Santiago", t2);
         

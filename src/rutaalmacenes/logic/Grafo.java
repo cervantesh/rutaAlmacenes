@@ -9,8 +9,17 @@ package rutaalmacenes.logic;
 public class Grafo<T> implements InterfazGrafo<T> {
     
     private ListaSE<T> lista;
+
+    
     private ListaSE<ListaSE<Integer>> adyacencia;
     
+    public ListaSE<T> getLista() {
+        return lista;
+    }
+
+    public ListaSE<ListaSE<Integer>> getAdyacencia() {
+        return adyacencia;
+    }
     
     public Grafo() {
         lista =  new ListaSE<T>();

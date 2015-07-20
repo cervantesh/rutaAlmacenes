@@ -15,6 +15,19 @@ import java.util.logging.Logger;
  */
 public class AyudaGUI {
     
+    static public boolean esVacio(String st) throws Exception
+    {
+        if(st!=null)
+        {
+            return st.trim().length() == 0;
+        }
+        else
+        {
+            throw new Exception("No existe textfield");
+        }
+    }
+        
+    
     private void llenarComboBox(javax.swing.JComboBox jc)//, Residencial res)
     {
         /*
