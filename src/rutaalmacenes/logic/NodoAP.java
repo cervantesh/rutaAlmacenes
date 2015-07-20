@@ -27,7 +27,7 @@ public class NodoAP//
         this.tiempoRecorrido = tiempoRecorrido;
     }
     
-    public Integer getAdyacencia()
+    public Integer getAdyacenciaNodo()
     {
         return adyacencia;
     }

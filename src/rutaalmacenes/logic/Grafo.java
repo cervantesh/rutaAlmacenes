@@ -64,7 +64,7 @@ public class Grafo<T> implements InterfazGrafo<T> {
         {
             ListaSE<NodoAP> adyac = adyacencia.Obtener(p1);
             for(int i = 0; i < adyac.Longitud(); i++)
-                if (adyac.Obtener(i).getAdyacencia().equals(p2))
+                if (adyac.Obtener(i).getAdyacenciaNodo().equals(p2))
                     return true;
            
         }
@@ -126,15 +126,15 @@ public class Grafo<T> implements InterfazGrafo<T> {
                 for(int j = 0; j < adyac.Longitud(); j++) {
                     aux = adyac.Obtener(0);
                     adyac.Eliminar(0);
-                    if(aux.getAdyacencia() > p) 
+                    if(aux.getAdyacenciaNodo() > p) 
                     {
-                        NodoAP nodeAuxMinor=new NodoAP(aux.getAdyacencia()-1, aux.getTiempoRecorrido());
+                        NodoAP nodeAuxMinor=new NodoAP(aux.getAdyacenciaNodo()-1, aux.getTiempoRecorrido());
                         
                         adyac.Adicionar(nodeAuxMinor);//aux-1
                     }
                     else
                     {
-                        NodoAP nodeAux=new NodoAP(aux.getAdyacencia(), aux.getTiempoRecorrido());
+                        NodoAP nodeAux=new NodoAP(aux.getAdyacenciaNodo(), aux.getTiempoRecorrido());
                         
                         adyac.Adicionar(nodeAux);//aux
                     }
@@ -153,12 +153,12 @@ public class Grafo<T> implements InterfazGrafo<T> {
         {
             ListaSE<NodoAP> adyac = adyacencia.Obtener(p1);
             for(int i = 0; i < adyac.Longitud(); i++)
-                if(adyac.Obtener(i).getAdyacencia() == p2)
+                if(adyac.Obtener(i).getAdyacenciaNodo() == p2)
                     adyac.Eliminar(i);
             
             adyac = adyacencia.Obtener(p2);
             for(int i = 0; i < adyac.Longitud(); i++)
-                if(adyac.Obtener(i).getAdyacencia() == p1)
+                if(adyac.Obtener(i).getAdyacenciaNodo() == p1)
                     adyac.Eliminar(i);
         }
         else    
@@ -199,11 +199,11 @@ public class Grafo<T> implements InterfazGrafo<T> {
                ListaSE<NodoAP> adyac = adyacencia.Obtener(aux.Obtener(i)); 
                for(int j = 0; j < adyac.Longitud(); j++)
                {
-                  if(!visitado[adyac.Obtener(j).getAdyacencia()])
+                  if(!visitado[adyac.Obtener(j).getAdyacenciaNodo()])
                   {
-                     aux.Adicionar(adyac.Obtener(j).getAdyacencia());
-                     result.Adicionar(lista.Obtener(adyac.Obtener(j).getAdyacencia()));
-                     visitado[adyac.Obtener(j).getAdyacencia()] = true;
+                     aux.Adicionar(adyac.Obtener(j).getAdyacenciaNodo());
+                     result.Adicionar(lista.Obtener(adyac.Obtener(j).getAdyacenciaNodo()));
+                     visitado[adyac.Obtener(j).getAdyacenciaNodo()] = true;
                   }
                }
              }
@@ -230,7 +230,7 @@ public class Grafo<T> implements InterfazGrafo<T> {
         for(int i = 0; i < lista.Longitud(); i++) 
         {
             aux = new ListaSE<NodoAP>();
-           ListaSE<NodoAP> adyac = adyacencia.Obtener(aux.Obtener(i).getAdyacencia());
+           ListaSE<NodoAP> adyac = adyacencia.Obtener(aux.Obtener(i).getAdyacenciaNodo());
            
            for(int j = 0; j < adyac.Longitud(); j++) 
               aux.Adicionar(adyac.Obtener(j));
@@ -280,7 +280,7 @@ public class Grafo<T> implements InterfazGrafo<T> {
         ListaSE<T> result = new ListaSE<T>();
         ListaSE<NodoAP> adyacentes = adyacencia.Obtener(PosicionDelVertice(v));
         for(int i=0;i<adyacentes.Longitud();i++)
-            result.Adicionar(lista.Obtener(adyacentes.Obtener(i).getAdyacencia()));
+            result.Adicionar(lista.Obtener(adyacentes.Obtener(i).getAdyacenciaNodo()));
         return result;
     }
     
@@ -296,7 +296,7 @@ public class Grafo<T> implements InterfazGrafo<T> {
             
                 for(int j=0; j<adyacencia.Obtener(i).Longitud(); j++)
                 {
-                    String msg=lista.Obtener(adyacencia.Obtener(i).Obtener(j).getAdyacencia()).toString();
+                    String msg=lista.Obtener(adyacencia.Obtener(i).Obtener(j).getAdyacenciaNodo()).toString();
                     System.out.println("\t" + msg + ". Tiempo de recorrido: " + adyacencia.Obtener(i).Obtener(j).getTiempoRecorrido());
                 }
             }
