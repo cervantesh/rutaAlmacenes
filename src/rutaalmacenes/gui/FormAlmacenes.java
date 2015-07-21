@@ -28,8 +28,33 @@ public class FormAlmacenes extends javax.swing.JFrame {
         aplicarFormatos();
         
         almacenes = new Grafo<>();
+        try {
+            insertarAlmacen("001",CiudadesSantoDomingo.BANÍ.toString(),8,0);
+            insertarAlmacen("002",CiudadesSantoDomingo.BAYAGUANA.toString(),7,15);
+            insertarAlmacen("003",CiudadesSantoDomingo.LAS_MATAS_DE_FARFÁN.toString(),15,0);
+
+        } catch (Exception ex) {
+            Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
              
     }
+    
+    
+    
+    private void insertarAlmacen(String id,String ciudad ,int h,int m) throws Exception
+    {
+        this.almacenes.InsertarVertice(
+        new Almacen(
+                    id,
+                    ciudad,
+                    LocalTime.of(h, m)
+            )
+        );
+    }
+    
     
     private void aplicarFormatos()
     {
@@ -245,7 +270,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +298,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
         else
         {
             JOptionPane.showMessageDialog(rootPane, 
-                    "Para agregar camino ingresar al menos dos almacenes");
+                    "Para agregar caminos debe ingresar al menos dos almacenes");
         }
         
     }//GEN-LAST:event_menuCaminosAgregarActionPerformed
@@ -290,7 +315,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
         else
         {
              JOptionPane.showMessageDialog(rootPane, 
-                     "Debe ingresa al menos un almacen para realizar modificaciones");
+                     "Debe ingresar al menos un almacen para realizar modificaciones");
         }
         
     }//GEN-LAST:event_menuAlmacenesModificarActionPerformed
@@ -303,7 +328,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
         else
         {
             JOptionPane.showMessageDialog(rootPane, 
-                    "No existen almacenes que se puedan eliminar");
+                    "No existen almacenes");
         }
     }//GEN-LAST:event_menuAlmacenesEliminarActionPerformed
 
@@ -335,8 +360,21 @@ public class FormAlmacenes extends javax.swing.JFrame {
     }//GEN-LAST:event_menuAyudaCreditosActionPerformed
 
     private void menuCaminosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosEliminarActionPerformed
-        // TODO add your handling code here:
-        new FormEliminarCamino().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            if (validarEliminarCamino(almacenes)) {
+                new FormEliminarCamino().setVisible(true);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rootPane,
+                        "No existen caminos para eliminar");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_menuCaminosEliminarActionPerformed
 
     private void tablaAlmacenesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tablaAlmacenesFocusLost
@@ -486,5 +524,13 @@ public class FormAlmacenes extends javax.swing.JFrame {
         
         return true;
         
+    }
+
+    private boolean validarEliminarCamino(Grafo grafo) throws Exception {
+        if (!grafo.existenArcos()) {
+            return false;
+        }
+        
+        return true;
     }
 }

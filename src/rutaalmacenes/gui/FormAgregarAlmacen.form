@@ -34,25 +34,26 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbCiudad" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lbHoraInicio" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lbId" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jsHora" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jsMinutos" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jsMomento" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="53" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="tfNombre" alignment="0" max="32767" attributes="0"/>
-                          <Component id="tfIdentificador" alignment="0" min="-2" pref="167" max="-2" attributes="0"/>
+                          <Component id="tfIdentificador" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbCiudad" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,15 +68,17 @@
                   </Group>
                   <Component id="tfIdentificador" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="lbNombre" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="lbCiudad" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="tfNombre" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cbCiudad" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbHoraInicio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jsHora" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -100,11 +103,9 @@
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="tfIdentificador">
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="tfNombre">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbNombre">
+    <Component class="javax.swing.JLabel" name="lbCiudad">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre"/>
+        <Property name="text" type="java.lang.String" value="Ciudad"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbHoraInicio">
@@ -152,6 +153,13 @@
             <ListItem value="AM"/>
             <ListItem value="PM"/>
           </SpinnerModel>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbCiudad">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new DefaultComboBoxModel(CiudadesSantoDomingo.values())" type="code"/>
         </Property>
       </Properties>
     </Component>
