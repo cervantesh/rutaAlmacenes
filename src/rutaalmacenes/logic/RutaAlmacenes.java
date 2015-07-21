@@ -20,19 +20,15 @@ public class RutaAlmacenes
     public static void main(String[] args) throws Exception
     {
         Grafo<Almacen> Almacenes=new Grafo<>();
+        Grafo<Almacen> alm2=new Grafo<>();
         
-        /*
-        Time t1;
-        t1 = new Time(12, 50, 5);
-        Time t2;
-        t2 = new Time(8, 20, 0);
-        */
         LocalTime  t1, t2;
         t1 = LocalTime.of(12, 50);
         t2 = LocalTime.of(8, 20);
         
-        LocalTime time1=LocalTime.of(5, 0);
+        LocalTime time1=LocalTime.of(3, 0);
         LocalTime time2=LocalTime.of(4, 0);
+        LocalTime time3=LocalTime.of(1, 0);
         
 
         Almacen a1=new Almacen("SD", "Sto Dgo", t1);
@@ -44,15 +40,25 @@ public class RutaAlmacenes
         Almacenes.InsertarVertice(a3);
         Almacenes.InsertarArco(a1, a1, time1);
         Almacenes.InsertarArco(a2, a2, time2);
-        Almacenes.InsertarArco(a1, a2, time1);
+        Almacenes.InsertarArco(a1, a2, time3);
         Almacenes.InsertarArco(a3, a3, time2);
-        Almacenes.InsertarArco(a1, a3, time2);
-        Almacenes.EliminarArco(a1, a2);
-        Almacenes.EliminarVertice(a3);
+        Almacenes.InsertarArco(a1, a3, time1);
+        //Almacenes.EliminarArco(a1, a2);
+        //Almacenes.EliminarVertice(a3);
         
         System.out.println("Almacenes:");
         Almacenes.MostrarGrafo();
         System.out.println();
+        
+        
+        ListaSE<NodoAP> adyac=Almacenes.VerticesAdyacentes(a1);
+        System.out.println("Almacenes adyacentes a " + a1);
+        for(int i=0; i<adyac.Longitud(); i++)
+        {
+            System.out.println(Almacenes.getLista().Obtener(adyac.Obtener(i).getAdyacenciaNodo()));
+        }
+        System.out.println("\nVertice de menor tiempo de recorrido en " + a1);
+        System.out.println(Almacenes.getLista().Obtener(Almacenes.VerticeMenorRecorrido(a1).getAdyacenciaNodo()));
     }
     
 }

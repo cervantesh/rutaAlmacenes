@@ -309,4 +309,50 @@ public class Grafo<T> implements InterfazGrafo<T> {
     {
         return NumeroDeArcos() > 0; 
     }
+    
+    public ListaSE<NodoAP> VerticesAdyacentes(T v) throws Exception //Retorna lista de vertices adyacentes
+    {
+        int p1=PosicionDelVertice(v);
+        ListaSE<NodoAP> result= new ListaSE<>();
+        
+        if(p1!=-1)
+        {
+            ListaSE<NodoAP> adyac=adyacencia.Obtener(p1);
+            for(int i=0; i<adyac.Longitud(); i++)
+            {
+                result.Adicionar(adyac.Obtener(i));
+            }
+        }
+        return result;
+    }
+    
+    public NodoAP VerticeMenorRecorrido(T v) throws Exception//Retorna vértice de menor recorrido de lista de adyacentes
+    {
+        ListaSE<NodoAP> adyacentes=VerticesAdyacentes(v);
+        
+        NodoAP menor=adyacentes.Obtener(0);
+        for(int i=1; i<adyacentes.Longitud(); i++)
+        {
+            if(adyacentes.Obtener(i).getTiempoRecorrido().isBefore(menor.getTiempoRecorrido()))
+                menor=adyacentes.Obtener(i);
+        }
+        
+        return menor;
+    }
+    
+//    public T VerticeMenorHoraApertura(T v) throws Exception
+//    {
+//        ListaSE<NodoAP> adyacentes=VerticesAdyacentes(v);
+//        
+//        T menor = lista.Obtener(adyacentes.Obtener(0).getAdyacenciaNodo());
+//        
+//        for(int i=1; i<adyacentes.Longitud(); i++)
+//        {
+//            if(adyacentes.Obtener(i).getTiempoRecorrido().isBefore(menor.getTiempoRecorrido()))
+//                menor=adyacentes.Obtener(i);
+//            
+//        }
+//        
+//        return menor;
+//    }
 }
