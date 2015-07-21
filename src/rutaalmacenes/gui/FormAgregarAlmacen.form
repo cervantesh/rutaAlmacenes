@@ -162,6 +162,9 @@
           <Connection code="new DefaultComboBoxModel(CiudadesSantoDomingo.values())" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbCiudadActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

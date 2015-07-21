@@ -348,14 +348,9 @@ public class Grafo<T> implements InterfazGrafo<T> {
 //    {
 //        ListaSE<NodoAP> adyacentes=VerticesAdyacentes(v);
 //        
-//        T menor = lista.Obtener(adyacentes.Obtener(0).getAdyacenciaNodo());
+//        T menor=lista.Obtener(adyacentes.Obtener(0).getAdyacenciaNodo());
 //        
-//        for(int i=1; i<adyacentes.Longitud(); i++)
-//        {
-//            if(adyacentes.Obtener(i).getTiempoRecorrido().isBefore(menor.getTiempoRecorrido()))
-//                menor=adyacentes.Obtener(i);
-//            
-//        }
+//        
 //        
 //        return menor;
 //    }

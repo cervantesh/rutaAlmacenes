@@ -45,7 +45,8 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         lbId = new javax.swing.JLabel();
         tfIdentificador = new javax.swing.JFormattedTextField();
@@ -68,15 +69,19 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
         lbHoraInicio.setText("Hora inicio");
 
         jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
 
         btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAgregar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAgregarActionPerformed(evt);
             }
         });
@@ -88,6 +93,13 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
         jsMomento.setModel(new javax.swing.SpinnerListModel(new String[] {"AM", "PM"}));
 
         cbCiudad.setModel(new DefaultComboBoxModel(CiudadesSantoDomingo.values()));
+        cbCiudad.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                cbCiudadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,6 +202,11 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
             Logger.getLogger(FormAgregarAlmacen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void cbCiudadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbCiudadActionPerformed
+    {//GEN-HEADEREND:event_cbCiudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCiudadActionPerformed
     
     
     
