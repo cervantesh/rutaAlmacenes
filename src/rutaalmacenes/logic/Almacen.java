@@ -43,7 +43,14 @@ public class Almacen
     @Override
     public String toString()
     {
-        return "ID: " + id + ". " + ciudad + ". Hora de apertura: " + horaDeApertura;
+        return "ID: " + id + "  Ciudad: " + ciudad + "  Hora Inicio:  " + horaDeApertura;
+    } 
+    
+    @Override
+    public boolean equals(Object obj) {
+        Almacen almacen = (Almacen) obj;
+        return this.id.equals(almacen.id) && this.ciudad.equals(almacen.ciudad);
+        
     }
     
 }

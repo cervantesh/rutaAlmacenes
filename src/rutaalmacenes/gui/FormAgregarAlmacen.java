@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package rutaalmacenes.gui;
-import java.sql.Time;
 import java.time.LocalTime;
 import rutaalmacenes.logic.*;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,13 +21,13 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
     /**
      * Creates new form FormManipulacionAlmacen
      */
-    Object ob;
+    Grafo grafo;
     
     
-    public FormAgregarAlmacen(Object ob) {
+    public FormAgregarAlmacen(Grafo grafo) {
         initComponents();
         aplicarFormatos();
-        this.ob = ob;
+        this.grafo = grafo;
         
     }
     
@@ -49,21 +49,21 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
 
         lbId = new javax.swing.JLabel();
         tfIdentificador = new javax.swing.JFormattedTextField();
-        tfNombre = new javax.swing.JFormattedTextField();
-        lbNombre = new javax.swing.JLabel();
+        lbCiudad = new javax.swing.JLabel();
         lbHoraInicio = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         jsMinutos = new javax.swing.JSpinner();
         jsHora = new javax.swing.JSpinner();
         jsMomento = new javax.swing.JSpinner();
+        cbCiudad = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Almacen");
 
         lbId.setText("Id");
 
-        lbNombre.setText("Nombre");
+        lbCiudad.setText("Ciudad");
 
         lbHoraInicio.setText("Hora inicio");
 
@@ -87,6 +87,8 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
 
         jsMomento.setModel(new javax.swing.SpinnerListModel(new String[] {"AM", "PM"}));
 
+        cbCiudad.setModel(new DefaultComboBoxModel(CiudadesSantoDomingo.values()));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,20 +102,21 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
                         .addComponent(btnAgregar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbNombre)
+                            .addComponent(lbCiudad)
                             .addComponent(lbHoraInicio)
                             .addComponent(lbId))
                         .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jsHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jsMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jsMomento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfNombre)
-                            .addComponent(tfIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jsMomento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 53, Short.MAX_VALUE))
+                            .addComponent(tfIdentificador)
+                            .addComponent(cbCiudad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,13 +127,14 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(lbId))
                     .addComponent(tfIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lbNombre))
-                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
+                        .addGap(12, 12, 12)
+                        .addComponent(lbCiudad))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbHoraInicio)
                     .addComponent(jsHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,7 +158,7 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        if (esValidaEntradaDatos(tfNombre.getText(),tfIdentificador.getText())) {
+        if (esValidaEntradaDatos(tfIdentificador.getText())) {
             
             int hora,minutos;
             
@@ -168,12 +172,12 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
             Almacen a;
             a = new Almacen(
                     tfIdentificador.getText(),
-                    tfNombre.getText(),
+                    cbCiudad.getSelectedItem().toString(),
                     LocalTime.of(hora, minutos)
             );
             
             try {
-                ((Grafo <Almacen>) ob).InsertarVertice(a);
+                 grafo.InsertarVertice(a);
                 JOptionPane.showMessageDialog(rootPane, "Almacen Agregado Exitosamente");
                 this.dispose();
             } catch (Exception ex) {
@@ -181,7 +185,7 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
             }
         }  
         try {
-            FormAlmacenes.updateGrid(FormAlmacenes.tablaAlmacenes , (Grafo<Almacen>) ob);
+            FormAlmacenes.updateGrid(FormAlmacenes.tablaAlmacenes ,  grafo);
         } catch (Exception ex) {
             Logger.getLogger(FormAgregarAlmacen.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -190,13 +194,12 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
     
     
     //Metodos CDJ
-    private boolean esValidaEntradaDatos(String tfNombre,String tfIdentificador)
+    private boolean esValidaEntradaDatos(String tfIdentificador)
     {
         try {
-            if (AyudaGUI.esVacio(tfNombre) ||  
-                AyudaGUI.esVacio(tfIdentificador))
+            if (AyudaGUI.esVacio(tfIdentificador))
             {
-                JOptionPane.showMessageDialog(rootPane, "Ingrese todos los datos");
+                JOptionPane.showMessageDialog(rootPane, "Ingrese el Identificador");
                 return false;
             }
         } catch (Exception ex) {
@@ -218,14 +221,14 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JComboBox cbCiudad;
     private javax.swing.JButton jButton1;
     private javax.swing.JSpinner jsHora;
     private javax.swing.JSpinner jsMinutos;
     private javax.swing.JSpinner jsMomento;
+    private javax.swing.JLabel lbCiudad;
     private javax.swing.JLabel lbHoraInicio;
     private javax.swing.JLabel lbId;
-    private javax.swing.JLabel lbNombre;
     private javax.swing.JFormattedTextField tfIdentificador;
-    private javax.swing.JFormattedTextField tfNombre;
     // End of variables declaration//GEN-END:variables
 }

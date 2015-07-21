@@ -78,6 +78,10 @@ public class Grafo<T> implements InterfazGrafo<T> {
             lista.Adicionar(v);
 	adyacencia.Adicionar(new ListaSE<NodoAP>());
         }
+        else
+        {
+            throw new Exception("El elemento ya Existe");
+        }
     }
     
     @Override

@@ -6,6 +6,7 @@
 package rutaalmacenes.gui;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import rutaalmacenes.logic.*;
 
 /**
@@ -18,14 +19,14 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
      * Creates new form FormManipulacionAlmacen
      */
     
-    Object ob;
+    Grafo grafo;
     
-    public FormAgregarCaminos(Object ob) {
+    public FormAgregarCaminos(Grafo grafo) {
         initComponents();
         aplicarFormatos();
-        this.ob = ob;
+        this.grafo = grafo;
         try {
-            llenarComboBoxesForm(cbInicio, cbDestino, ob);
+            llenarComboBoxesForm(cbInicio, cbDestino, grafo);
         } catch (Exception ex) {
             Logger.getLogger(FormAgregarCaminos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,26 +89,23 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbDestino)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbHoraInicio)
-                            .addComponent(lbAlmacen01))
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 24, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAgregar)
+                            .addComponent(lbAlmacen01)
+                            .addComponent(lbDestino))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfNombre1)
+                            .addComponent(cbInicio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(260, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAgregar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -144,13 +142,38 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         
+        if(validarAgregarCamino(this.grafo, cbInicio.getSelectedItem(), cbDestino.getSelectedItem()))
+        {
+            JOptionPane.showMessageDialog(rootPane, "Almacen Agregado Exitosamente");
+            this.dispose();
+        }
+        
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
     
-    private void llenarComboBoxesForm(javax.swing.JComboBox jc1,javax.swing.JComboBox jc2, Object ob) throws Exception
+    private void llenarComboBoxesForm(javax.swing.JComboBox jc1,javax.swing.JComboBox jc2, Grafo grafo) throws Exception
     {
-        AyudaGUI.llenarComboBox(jc1, (Grafo) ob);
-        AyudaGUI.llenarComboBox(jc2, (Grafo) ob);
+        AyudaGUI.llenarComboBox(jc1,  grafo);
+        AyudaGUI.llenarComboBox(jc2,  grafo);
     }
+    
+    private boolean validarAgregarCamino(Grafo grafo, Object a1, Object a2)
+    {
+        try {
+            if (grafo.EstaElArco(a1, a2)) {
+                JOptionPane.showMessageDialog(rootPane, "Existe el Camino");
+                return false; 
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(FormAgregarCaminos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return true;
+    }
+    
+    
     
     /**
      * @param args the command line arguments
