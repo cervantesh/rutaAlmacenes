@@ -527,7 +527,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
     }
 
     private boolean validarEliminarCamino(Grafo grafo) throws Exception {
-        if (!grafo.existenArcos()) {
+        if (!grafo.ExistenArcos()) {
             return false;
         }
         
