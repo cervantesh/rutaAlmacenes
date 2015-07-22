@@ -12,13 +12,13 @@ import java.time.LocalTime;
  *
  * @author CDJ
  */
-public class Almacen
+public class Almacen<T> extends Vertice
 {
     private String id;
     private String ciudad;
-    private LocalTime horaDeApertura;
+    private T horaDeApertura;
 
-    public Almacen(String ID, String nombre, LocalTime horaDeApertura) //
+    public Almacen(String ID, String nombre, T horaDeApertura) //
     {
         this.id = ID;
         this.ciudad = nombre;
@@ -35,7 +35,7 @@ public class Almacen
         return ciudad;
     }
 
-    public LocalTime getHoraDeApertura()
+    public T getHoraDeApertura()
     {
         return horaDeApertura;
     }
