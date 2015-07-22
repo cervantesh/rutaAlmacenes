@@ -38,17 +38,16 @@ public class Dijkstra {
         */
     }
 
-    public static ListaSE<Vertice> getShortestPathTo(Vertice target)
+    public static ListaSE<Vertice> getShortestPathTo(Vertice objetivo)
     {
-       /*
-        List<Vertice> path = new ArrayList<Vertice>();
-        for (Vertice vertex = target; vertex != null; vertex = vertex.previous)
-            path.add(vertex);
+       
+        ListaSE<Vertice> camino = new ListaSE<Vertice>();
+        for (Vertice vertice = objetivo; vertice != null; vertice = vertice.getAnterior())
+            camino.Adicionar(vertice); 
 
-        Collections.reverse(path);
-        return path;
-        */
-        return new ListaSE();
+        //Collections.reverse(path);
+        return camino;
+        
     }
 
     public static void main(String[] args)
