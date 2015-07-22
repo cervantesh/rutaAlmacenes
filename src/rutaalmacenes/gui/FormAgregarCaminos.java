@@ -50,12 +50,13 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
 
         lbAlmacen01 = new javax.swing.JLabel();
         lbDestino = new javax.swing.JLabel();
-        tfNombre1 = new javax.swing.JFormattedTextField();
         lbHoraInicio = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         cbInicio = new javax.swing.JComboBox();
         cbDestino = new javax.swing.JComboBox();
+        jsHora = new javax.swing.JSpinner();
+        jsMinutos = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Camino");
@@ -84,6 +85,10 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
 
         cbDestino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jsHora.setModel(new javax.swing.SpinnerNumberModel(1, 1, 80, 1));
+
+        jsMinutos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,8 +103,13 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
                             .addComponent(lbDestino))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jsHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jsMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(cbDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfNombre1)
                             .addComponent(cbInicio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(260, Short.MAX_VALUE)
@@ -122,7 +132,9 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbHoraInicio)
-                    .addComponent(tfNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jsHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jsMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -184,9 +196,10 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
     private javax.swing.JComboBox cbDestino;
     private javax.swing.JComboBox cbInicio;
     private javax.swing.JButton jButton1;
+    private javax.swing.JSpinner jsHora;
+    private javax.swing.JSpinner jsMinutos;
     private javax.swing.JLabel lbAlmacen01;
     private javax.swing.JLabel lbDestino;
     private javax.swing.JLabel lbHoraInicio;
-    private javax.swing.JFormattedTextField tfNombre1;
     // End of variables declaration//GEN-END:variables
 }
