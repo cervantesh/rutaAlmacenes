@@ -494,7 +494,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
                 
                 id = almacen.getID();
                 nombre = almacen.getNombre();
-                horaInicio = almacen.getHoraDeApertura();
+                horaInicio = (LocalTime)almacen.getHoraDeApertura();
                 
             
             model.addRow(new Object[]{i+1, id, nombre, horaInicio, caminos, tiempos, aislado});
