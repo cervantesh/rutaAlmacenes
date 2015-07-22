@@ -10,7 +10,84 @@ package rutaalmacenes.logic;
  * @author Seelee
  */
 public class Dijkstra {
-    
+    public static void computePaths(Vertice source)
+    {
+        /*
+        source.setPesoMin();
+        PriorityQueue<Vertice> vertexQueue = new PriorityQueue<Vertice>();
+	vertexQueue.add(source);
+
+	while (!vertexQueue.isEmpty()) {
+	    Vertice u = vertexQueue.poll();
+
+            // Visit each edge exiting u
+            for (Edge e : u.adjacencies)
+            {
+                Vertice v = e.target;
+                double weight = e.weight;
+                double distanceThroughU = u.pesoMin + weight;
+		if (distanceThroughU < v.pesoMin) {
+		    vertexQueue.remove(v);
+
+		    v.pesoMin = distanceThroughU ;
+		    v.previous = u;
+		    vertexQueue.add(v);
+		}
+            }
+        }
+        */
+    }
+
+    public static ListaSE<Vertice> getShortestPathTo(Vertice target)
+    {
+       /*
+        List<Vertice> path = new ArrayList<Vertice>();
+        for (Vertice vertex = target; vertex != null; vertex = vertex.previous)
+            path.add(vertex);
+
+        Collections.reverse(path);
+        return path;
+        */
+        return new ListaSE();
+    }
+
+    public static void main(String[] args)
+    {
+        /*
+        Vertice v0 = new Vertice("Harrisburg");
+	Vertice v1 = new Vertice("Baltimore");
+	Vertice v2 = new Vertice("Washington");
+	Vertice v3 = new Vertice("Philadelphia");
+	Vertice v4 = new Vertice("Binghamton");
+	Vertice v5 = new Vertice("Allentown");
+	Vertice v6 = new Vertice("New York");
+	v0.adjacencies = new Edge[]{ new Edge(v1,  79.83),
+	                             new Edge(v5,  81.15) };
+	v1.adjacencies = new Edge[]{ new Edge(v0,  79.75),
+	                             new Edge(v2,  39.42),
+	                             new Edge(v3, 103.00) };
+	v2.adjacencies = new Edge[]{ new Edge(v1,  38.65) };
+	v3.adjacencies = new Edge[]{ new Edge(v1, 102.53),
+	                             new Edge(v5,  61.44),
+	                             new Edge(v6,  96.79) };
+	v4.adjacencies = new Edge[]{ new Edge(v5, 133.04) };
+	v5.adjacencies = new Edge[]{ new Edge(v0,  81.77),
+	                             new Edge(v3,  62.05),
+	                             new Edge(v4, 134.47),
+	                             new Edge(v6,  91.63) };
+	v6.adjacencies = new Edge[]{ new Edge(v3,  97.24),
+	                             new Edge(v5,  87.94) };
+	Vertice[] vertices = { v0, v1, v2, v3, v4, v5, v6 };
+
+        computePaths(v0);
+        for (Vertice v : vertices)
+	{
+	    System.out.println("Distance to " + v + ": " + v.pesoMin);
+	    List<Vertice> path = getShortestPathTo(v);
+	    System.out.println("Path: " + path);
+	}
+        */
+    }
 }
 
 

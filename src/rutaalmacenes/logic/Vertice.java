@@ -18,6 +18,14 @@ public abstract class Vertice<T extends Comparable<T> & Inicializacion<T>>
 
     private Vertice anterior;
     private T pesoMin;
+
+    public void setAnterior(Vertice anterior) {
+        this.anterior = anterior;
+    }
+
+    public void setPesoMin(T pesoMin) {
+        this.pesoMin = pesoMin;
+    }
     
     
     public Vertice getAnterior() {
