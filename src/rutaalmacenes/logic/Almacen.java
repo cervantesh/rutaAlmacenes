@@ -5,12 +5,11 @@
  */
 package rutaalmacenes.logic;
 
-import java.time.LocalTime;
-
 
 /**
  *
  * @author CDJ
+ * @param <T>
  */
 public class Almacen<T> extends Vertice
 {
@@ -18,6 +17,12 @@ public class Almacen<T> extends Vertice
     private String ciudad;
     private T horaDeApertura;
 
+    /**
+     *
+     * @param ID
+     * @param nombre
+     * @param horaDeApertura
+     */
     public Almacen(String ID, String nombre, T horaDeApertura) //
     {
         this.id = ID;
@@ -25,16 +30,28 @@ public class Almacen<T> extends Vertice
         this.horaDeApertura = horaDeApertura;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getID()
     {
         return id;
     }
 
-    public String getNombre()
+    /**
+     *
+     * @return
+     */
+    public String getCiudad()
     {
         return ciudad;
     }
 
+    /**
+     *
+     * @return
+     */
     public T getHoraDeApertura()
     {
         return horaDeApertura;

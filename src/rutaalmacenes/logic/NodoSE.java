@@ -8,31 +8,52 @@ package rutaalmacenes.logic;
 /**
  *
  * @author CDJ
+ * @param <T>
  */
 public class NodoSE<T> {
 	
 	private T dato;
 	private NodoSE <T> siguiente;
 	
-	public NodoSE(T dato)
+    /**
+     *
+     * @param dato
+     */
+    public NodoSE(T dato)
 	{
             this.dato = dato;
             siguiente = null;
 	}
 
-	public T getDato() {
+    /**
+     *
+     * @return
+     */
+    public T getDato() {
             return dato;
 	}
 
-	public void setDato(T dato) {
+    /**
+     *
+     * @param dato
+     */
+    public void setDato(T dato) {
             this.dato = dato;
 	}
 
-	public NodoSE getSiguiente() {
+    /**
+     *
+     * @return
+     */
+    public NodoSE getSiguiente() {
             return siguiente;
 	}
 
-	public void setSiguiente(NodoSE siguiente) {
+    /**
+     *
+     * @param siguiente
+     */
+    public void setSiguiente(NodoSE siguiente) {
             this.siguiente = siguiente;
 	}
 	

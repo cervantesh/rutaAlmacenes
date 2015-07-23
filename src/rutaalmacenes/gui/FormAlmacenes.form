@@ -46,16 +46,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAlmacenesAgregarActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuAlmacenesModificar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Modificar"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-                <Property name="actionCommand" type="java.lang.String" value="modificarAlmacen"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAlmacenesModificarActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuAlmacenesEliminar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
@@ -81,16 +71,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCaminosAgregarActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuCaminosModificar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Modificar"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-                <Property name="actionCommand" type="java.lang.String" value="modificarCamino"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCaminosModificarActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuCaminosEliminar">
@@ -199,14 +179,11 @@
         <Component class="javax.swing.JTable" name="tablaAlmacenes">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="4">
+              <Table columnCount="4" rowCount="4">
                 <Column editable="true" title="#" type="java.lang.Integer"/>
                 <Column editable="true" title="Identificador" type="java.lang.String"/>
                 <Column editable="true" title="Ciudad" type="java.lang.String"/>
                 <Column editable="true" title="Hora Inicio" type="java.lang.Object"/>
-                <Column editable="true" title="Caminos" type="java.lang.String"/>
-                <Column editable="true" title="Tiempo" type="java.lang.Object"/>
-                <Column editable="true" title="Aislado" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>

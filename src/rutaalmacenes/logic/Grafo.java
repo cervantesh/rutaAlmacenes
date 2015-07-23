@@ -8,24 +8,41 @@ import java.time.LocalTime;
  * @author CDJ
  * @param <T>
  */
-public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
+public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
     
     private ListaSE<T> lista;
     private ListaSE<ListaSE<NodoAP>> adyacencia;
     
+    /**
+     *
+     * @return
+     */
     public ListaSE<T> getLista() {
         return lista;
     }
 
+    /**
+     *
+     * @return
+     */
     public ListaSE<ListaSE<NodoAP>> getAdyacencia() {
         return adyacencia;
     }
     
+    /**
+     *
+     */
     public Grafo() {
         lista =  new ListaSE<T>();
         adyacencia = new ListaSE<ListaSE<NodoAP>>();
     }
 
+    /**
+     *
+     * @param v
+     * @return
+     * @throws Exception
+     */
     protected int PosicionDelVertice(T v) throws Exception {
         for(int i = 0; i < lista.Longitud(); i++) 
             if (lista.Obtener(i).equals(v))
@@ -33,16 +50,29 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         return -1;
     }
      
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean EsVacio() {
         return lista.EsVacia();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int NumeroDeVertices() {
         return lista.Longitud();
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public int NumeroDeArcos() throws Exception {
         int c = 0;
@@ -51,11 +81,24 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         return c/2;
     }
 
+    /**
+     *
+     * @param v
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean EstaElVertice(T v) throws Exception {
         return PosicionDelVertice(v) != -1;
     }
 
+    /**
+     *
+     * @param v1
+     * @param v2
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean EstaElArco(T v1, T v2) throws Exception {
         int p1 = PosicionDelVertice(v1);
@@ -71,6 +114,11 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         return false;
     }
 
+    /**
+     *
+     * @param v
+     * @throws Exception
+     */
     @Override
     public void InsertarVertice(T v) throws Exception {
         if(!EstaElVertice(v))
@@ -84,6 +132,13 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         }
     }
     
+    /**
+     *
+     * @param v1
+     * @param v2
+     * @param time
+     * @throws Exception
+     */
     @Override
     public void InsertarArco(T v1, T v2, LocalTime time) throws Exception
     {
@@ -106,6 +161,11 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
             throw new IllegalArgumentException();
     }
     
+    /**
+     *
+     * @param v
+     * @throws Exception
+     */
     @Override
     public void EliminarVertice(T v) throws Exception //Daniel
     {
@@ -149,6 +209,12 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
             throw new IllegalArgumentException();
     }
 
+    /**
+     *
+     * @param v1
+     * @param v2
+     * @throws Exception
+     */
     @Override
     public void EliminarArco(T v1, T v2) throws Exception {
         int p1 = PosicionDelVertice(v1);
@@ -169,6 +235,12 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
             throw new IllegalArgumentException();
     }
 
+    /**
+     *
+     * @param v1
+     * @param v2
+     * @throws Exception
+     */
     @Override
     public void ReemplazarVertice(T v1, T v2) throws Exception {
         int p = PosicionDelVertice(v1);
@@ -186,6 +258,13 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
 
 /*Esta es otra forma de implementar ALoAncho sin colas la otra verla en la 
     implementación de matrix de adyacencia */
+
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
+    
     
     @Override
     public ListaSE<T> ALoAncho() throws Exception {
@@ -224,6 +303,11 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         throw new IllegalArgumentException();
     }
     
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public InterfazGrafo<T> Copiar() throws Exception {
         Grafo<T> g = new Grafo<T>();
@@ -243,6 +327,11 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         return g;
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
      public ListaSE<T> EnProfundidad() throws Exception {
         ListaSE<T> visitados = new ListaSE<T>();
@@ -261,6 +350,11 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         return visitados;
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean EsConexo() throws Exception {
         ListaSE<T> visitados = new ListaSE<T>();
@@ -268,17 +362,34 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         return visitados.Longitud()==lista.Longitud();
     }
 
+    /**
+     *
+     * @param v1
+     * @param v2
+     * @return
+     */
     @Override
     public ListaSE<T> MenorCamino(T v1, T v2) {
         return null;
     }
     
+    /**
+     *
+     * @param x
+     * @return
+     */
     public int Buscar(T x){
     	
         return lista.Buscar(x);
   
     }
 
+    /**
+     *
+     * @param v
+     * @return
+     * @throws Exception
+     */
     @Override
     public ListaSE<T> Adyacentes(T v) throws Exception {
         ListaSE<T> result = new ListaSE<T>();
@@ -288,6 +399,10 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         return result;
     }
     
+    /**
+     *
+     * @throws Exception
+     */
     public void MostrarGrafo() throws Exception
     {
         for (int i=0; i<lista.Longitud(); i++)
@@ -309,11 +424,22 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         }
     }
     
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public boolean ExistenArcos() throws Exception
     {
         return NumeroDeArcos() > 0; 
     }
     
+    /**
+     *
+     * @param v
+     * @return
+     * @throws Exception
+     */
     public ListaSE<NodoAP> VerticesAdyacentes(T v) throws Exception //Retorna lista de vertices adyacentes
     {
         int p1=PosicionDelVertice(v);
@@ -330,6 +456,12 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         return result;
     }
     
+    /**
+     *
+     * @param v
+     * @return
+     * @throws Exception
+     */
     public NodoAP VerticeMenorRecorrido(T v) throws Exception//Retorna vértice de menor recorrido de lista de adyacentes
     {
         ListaSE<NodoAP> adyacentes=VerticesAdyacentes(v);
@@ -344,12 +476,22 @@ public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
         return menor;
     }
     
+    /**
+     *
+     * @param source
+     */
     public void calcularCamino(T source)
     {
-        HeapPrioridad<Almacen> heapPrioridad;
+       // HeapPrioridad<Almacen> heapPrioridad;
         
     }
     
+    /**
+     *
+     * @param v
+     * @return
+     * @throws Exception
+     */
     public ListaSE<T> getCaminoMasCorto(T v) throws Exception
     {
        

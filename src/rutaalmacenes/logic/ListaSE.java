@@ -15,20 +15,35 @@ public class ListaSE<T> implements InterfazLista<T>
 {
     private NodoSE<T> cabeza;
         
-        public NodoSE<T> getCabeza() {
+    /**
+     *
+     * @return
+     */
+    public NodoSE<T> getCabeza() {
             return cabeza;
         }
 
-	public ListaSE() {
+    /**
+     *
+     */
+    public ListaSE() {
             cabeza = null;
 	}
 
-        @Override
+    /**
+     *
+     * @return
+     */
+    @Override
 	public boolean EsVacia() {
             return cabeza == null;
 	}
 
-        @Override
+    /**
+     *
+     * @return
+     */
+    @Override
 	public int Longitud() {
 		if (cabeza == null)
 			return 0;
@@ -41,7 +56,11 @@ public class ListaSE<T> implements InterfazLista<T>
 		return cont;
 	}
 
-        @Override
+    /**
+     *
+     * @param objeto
+     */
+    @Override
 	public void Adicionar(T objeto) {
 		NodoSE<T> nuevo = new NodoSE<>(objeto);
 		if (EsVacia())
@@ -54,7 +73,12 @@ public class ListaSE<T> implements InterfazLista<T>
 		}
 	}
 
-        @Override
+    /**
+     *
+     * @param pos
+     * @throws Exception
+     */
+    @Override
 	public void Eliminar(int pos) throws Exception {
 		if (EsVacia())
 			throw new Exception("Lista vacia");
@@ -73,7 +97,13 @@ public class ListaSE<T> implements InterfazLista<T>
 
 	}
 
-        @Override
+    /**
+     *
+     * @param objeto
+     * @param pos
+     * @throws Exception
+     */
+    @Override
 	public void Insertar(T objeto, int pos) throws Exception {
 		if (pos < 0 || pos >= Longitud())
 			throw new Exception("Posición fuera de rango");
@@ -91,7 +121,13 @@ public class ListaSE<T> implements InterfazLista<T>
 		}
 	}
 
-        @Override
+    /**
+     *
+     * @param pos
+     * @return
+     * @throws Exception
+     */
+    @Override
 	public T Obtener(int pos) throws Exception {
 		if (pos < 0 || pos >= Longitud())
 			throw new Exception("Posición fuera de rango");
@@ -103,7 +139,12 @@ public class ListaSE<T> implements InterfazLista<T>
 		return cursor.getDato();
 	}
 
-        @Override
+    /**
+     *
+     * @param x
+     * @return
+     */
+    @Override
 	public int Buscar(T x) {
 		NodoSE<T> cursor = cabeza;
 		int value = 0;
@@ -118,6 +159,7 @@ public class ListaSE<T> implements InterfazLista<T>
         /**
          * Retorna la lista en orden inverso
          * @return listaInvertida
+     * @throws java.lang.Exception
          */
         public ListaSE<T> InvertirLista() throws Exception
         {

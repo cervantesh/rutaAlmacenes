@@ -24,7 +24,9 @@ public class HeapPrioridad <T extends Comparable<T>> implements  ColaPrioridad<T
     
     private static final int CAPACIDAD = 15;
     
-    
+    /**
+     *
+     */
     public HeapPrioridad()
     {
         this.tamanoactual = 0;
@@ -81,6 +83,10 @@ public class HeapPrioridad <T extends Comparable<T>> implements  ColaPrioridad<T
         
     }
     
+    /**
+     *
+     * @param x
+     */
     @Override
     public void insertar(T x) {
         comprobarTamano();
@@ -96,12 +102,19 @@ public class HeapPrioridad <T extends Comparable<T>> implements  ColaPrioridad<T
         vector[hueco] = x;
     }
    
-    
+    /**
+     *
+     * @return
+     */
     @Override
     public T obtenerPrimero() {
         return vector[1];
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public T eliminar() {
         T min = obtenerPrimero();
@@ -116,19 +129,36 @@ public class HeapPrioridad <T extends Comparable<T>> implements  ColaPrioridad<T
         return min;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean esVacio() {
         return this.tamanoactual == 0;
    }
     
+    /**
+     *
+     * @return
+     */
     public T[] getVector() {
         return vector;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getTamanoactual() {
         return tamanoactual;
     }
     
+    /**
+     *
+     * @param i
+     * @return
+     */
     public T getMiembro(int i)
     {
         return vector[i];

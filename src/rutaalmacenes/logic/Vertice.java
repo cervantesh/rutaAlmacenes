@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Seelee
+ * @author CBJ
  * @param <T>
  */
 
@@ -19,19 +19,34 @@ public   class Vertice<T extends Comparable<T>>
     private Vertice anterior;
     private T pesoMin;
 
+    /**
+     * Asigna un valor al vertice anterior
+     * @param anterior
+     */
     public void setAnterior(Vertice anterior) {
         this.anterior = anterior;
     }
 
+    /**
+     *
+     * @param pesoMin
+     */
     public void setPesoMin(T pesoMin) {
         this.pesoMin = pesoMin;
     }
     
-    
+    /**
+     *
+     * @return
+     */
     public Vertice getAnterior() {
         return anterior;
     }
 
+    /**
+     *
+     * @return
+     */
     public T getPesoMin() {
         return pesoMin;
     }

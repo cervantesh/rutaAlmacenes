@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 package rutaalmacenes.gui;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import rutaalmacenes.logic.*;
 
 /**
  *
@@ -19,9 +18,12 @@ public class FormEliminarCamino extends javax.swing.JFrame {
     /**
      * Creates new form AislarEdificio
      */
-    public FormEliminarCamino() {
+    Grafo grafo;
+    public FormEliminarCamino(Grafo grafo) throws Exception {
+        this.grafo=grafo;
         initComponents();
         aplicarFormatos();
+        FormAgregarCaminos.llenarComboBoxesForm(cbAlmacenInicio, cbAlmacenDestino, grafo);
 
     }
     
@@ -44,7 +46,7 @@ public class FormEliminarCamino extends javax.swing.JFrame {
         btnInicio = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnAlmacenDestino = new javax.swing.JComboBox();
+        cbAlmacenDestino = new javax.swing.JComboBox();
         btnDestino = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -74,10 +76,10 @@ public class FormEliminarCamino extends javax.swing.JFrame {
             }
         });
 
-        btnAlmacenDestino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        btnAlmacenDestino.addItemListener(new java.awt.event.ItemListener() {
+        cbAlmacenDestino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAlmacenDestino.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                btnAlmacenDestinoItemStateChanged(evt);
+                cbAlmacenDestinoItemStateChanged(evt);
             }
         });
 
@@ -90,20 +92,20 @@ public class FormEliminarCamino extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnCancelar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnEliminar))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnInicio)
-                            .addGap(18, 18, 18)
-                            .addComponent(cbAlmacenInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnInicio)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbAlmacenInicio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDestino)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAlmacenDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cbAlmacenDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 287, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,13 +116,13 @@ public class FormEliminarCamino extends javax.swing.JFrame {
                     .addComponent(btnInicio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAlmacenDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbAlmacenDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDestino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
                     .addComponent(btnCancelar))
-                .addGap(29, 29, 29))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -133,8 +135,17 @@ public class FormEliminarCamino extends javax.swing.JFrame {
     }//GEN-LAST:event_cbAlmacenInicioItemStateChanged
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    
+        if (validarEliminarCamino(grafo, cbAlmacenInicio.getSelectedItem() , cbAlmacenDestino.getSelectedItem())) {
+            try {
+                grafo.EliminarArco((Vertice)cbAlmacenInicio.getSelectedItem(),(Vertice)cbAlmacenDestino.getSelectedItem());
+                JOptionPane.showMessageDialog(rootPane, "No Existe el Camino");
+                dispose();
+            } catch (Exception ex) {
+                Logger.getLogger(FormEliminarCamino.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
-
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -142,25 +153,31 @@ public class FormEliminarCamino extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnAlmacenDestinoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnAlmacenDestinoItemStateChanged
+    private void cbAlmacenDestinoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAlmacenDestinoItemStateChanged
         // TODO add your handling code here:
         //validarSalvar();
-    }//GEN-LAST:event_btnAlmacenDestinoItemStateChanged
+    }//GEN-LAST:event_cbAlmacenDestinoItemStateChanged
     
 
-    private void validarSalvar()
+    private boolean validarEliminarCamino(Grafo grafo, Object a1, Object a2)
     {
-        //Si los combobox son iguales 
-   
-        if (cbAlmacenInicio.getSelectedIndex() == btnAlmacenDestino.getSelectedIndex()) {
-            btnEliminar.setEnabled(false);
+        try {
+            if (!grafo.EstaElArco((Almacen)a1, (Almacen)a2)) {
+                JOptionPane.showMessageDialog(rootPane, "No Existe el Camino");
+                return false; 
+            }
+            
+        } catch (Exception ex) {
+      
+            Logger.getLogger(FormAgregarCaminos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else
-        {
-            btnEliminar.setEnabled(true);
+        
+        if (a1.equals(a2)) {
+            JOptionPane.showMessageDialog(rootPane, "No puede eliminar sobre el mismo vertice");
+            return false; 
         }
 
-        
+        return true;
     }
     /**
      * @param args the command line arguments
@@ -168,11 +185,11 @@ public class FormEliminarCamino extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox btnAlmacenDestino;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel btnDestino;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel btnInicio;
+    private javax.swing.JComboBox cbAlmacenDestino;
     private javax.swing.JComboBox cbAlmacenInicio;
     // End of variables declaration//GEN-END:variables
 }

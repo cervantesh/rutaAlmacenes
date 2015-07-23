@@ -8,7 +8,13 @@ package rutaalmacenes.logic;
 /**
  *
  * @author Seelee
+ * @param <T>
  */
 public interface  Inicializacion<T> {
+
+    /**
+     *
+     * @param o
+     */
     public void init(T o);
 }

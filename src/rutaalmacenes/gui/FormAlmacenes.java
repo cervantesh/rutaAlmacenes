@@ -29,9 +29,11 @@ public class FormAlmacenes extends javax.swing.JFrame {
         
         almacenes = new Grafo<>();
         try {
-            insertarAlmacen("001",CiudadesSantoDomingo.BANÍ.toString(),8,0);
-            insertarAlmacen("002",CiudadesSantoDomingo.BAYAGUANA.toString(),7,15);
-            insertarAlmacen("003",CiudadesSantoDomingo.LAS_MATAS_DE_FARFÁN.toString(),15,0);
+            insertarAlmacen("001",CiudadesRD.BANÍ.toString(),8,0);
+            insertarAlmacen("002",CiudadesRD.BAYAGUANA.toString(),7,15);
+            insertarAlmacen("003",CiudadesRD.LAS_MATAS_DE_FARFÁN.toString(),15,0);
+            
+            insertarCamino(almacenes.getLista().Obtener(0), almacenes.getLista().Obtener(1), 0, 45);
 
         } catch (Exception ex) {
             Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +56,13 @@ public class FormAlmacenes extends javax.swing.JFrame {
             )
         );
     }
+    private void insertarCamino(Almacen inicio, Almacen destino,int h, int m ) throws Exception{
     
+        
+        almacenes.InsertarArco(inicio, 
+                        destino, 
+                        LocalTime.of(h, m));
+    }
     
     private void aplicarFormatos()
     {
@@ -90,11 +98,9 @@ public class FormAlmacenes extends javax.swing.JFrame {
         menuArchivoCerrar = new javax.swing.JMenuItem();
         menuAlmacenes = new javax.swing.JMenu();
         menuAlmacenesAgregar = new javax.swing.JMenuItem();
-        menuAlmacenesModificar = new javax.swing.JMenuItem();
         menuAlmacenesEliminar = new javax.swing.JMenuItem();
         menuCaminos = new javax.swing.JMenu();
         menuCaminosAgregar = new javax.swing.JMenuItem();
-        menuCaminosModificar = new javax.swing.JMenuItem();
         menuCaminosEliminar = new javax.swing.JMenuItem();
         menuCaminosVer = new javax.swing.JMenuItem();
         menuHerramientas = new javax.swing.JMenu();
@@ -119,17 +125,17 @@ public class FormAlmacenes extends javax.swing.JFrame {
 
         tablaAlmacenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "#", "Identificador", "Ciudad", "Hora Inicio", "Caminos", "Tiempo", "Aislado"
+                "#", "Identificador", "Ciudad", "Hora Inicio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -171,16 +177,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
         });
         menuAlmacenes.add(menuAlmacenesAgregar);
 
-        menuAlmacenesModificar.setText("Modificar");
-        menuAlmacenesModificar.setToolTipText("");
-        menuAlmacenesModificar.setActionCommand("modificarAlmacen");
-        menuAlmacenesModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAlmacenesModificarActionPerformed(evt);
-            }
-        });
-        menuAlmacenes.add(menuAlmacenesModificar);
-
         menuAlmacenesEliminar.setText("Eliminar");
         menuAlmacenesEliminar.setToolTipText("");
         menuAlmacenesEliminar.setActionCommand("eliminarAlmacen");
@@ -204,16 +200,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
             }
         });
         menuCaminos.add(menuCaminosAgregar);
-
-        menuCaminosModificar.setText("Modificar");
-        menuCaminosModificar.setToolTipText("");
-        menuCaminosModificar.setActionCommand("modificarCamino");
-        menuCaminosModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuCaminosModificarActionPerformed(evt);
-            }
-        });
-        menuCaminos.add(menuCaminosModificar);
 
         menuCaminosEliminar.setText("Eliminar");
         menuCaminosEliminar.setToolTipText("");
@@ -308,22 +294,14 @@ public class FormAlmacenes extends javax.swing.JFrame {
         new FormAgregarAlmacen(almacenes).setVisible(true);
     }//GEN-LAST:event_menuAlmacenesAgregarActionPerformed
 
-    private void menuAlmacenesModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesModificarActionPerformed
-        if (validarModificarNodo(almacenes)) {
-            new FormModificarAlmacen().setVisible(true);
-        }
-        else
-        {
-             JOptionPane.showMessageDialog(rootPane, 
-                     "Debe ingresar al menos un almacen para realizar modificaciones");
-        }
-        
-    }//GEN-LAST:event_menuAlmacenesModificarActionPerformed
-
     private void menuAlmacenesEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesEliminarActionPerformed
         
         if (validarEliminarNodo(almacenes)) {
-            new FormEliminarAlmacen().setVisible(true);
+            try {
+                new FormEliminarAlmacen(almacenes).setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else
         {
@@ -332,26 +310,13 @@ public class FormAlmacenes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuAlmacenesEliminarActionPerformed
 
-    private void menuCaminosModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosModificarActionPerformed
+    private void menuCaminosVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosVerActionPerformed
         try {
             // TODO add your handling code here:
-            if (validarModificarCamino(almacenes)) {
-                new FormModificarCaminos().setVisible(true);
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(rootPane,
-                        "No existen caminos para modificar");
-            }
+            new FormCaminos(almacenes).setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//GEN-LAST:event_menuCaminosModificarActionPerformed
-
-    private void menuCaminosVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosVerActionPerformed
-        // TODO add your handling code here:
-        new FormCaminos().setVisible(true);
     }//GEN-LAST:event_menuCaminosVerActionPerformed
 
     private void menuAyudaCreditosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAyudaCreditosActionPerformed
@@ -363,7 +328,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             if (validarEliminarCamino(almacenes)) {
-                new FormEliminarCamino().setVisible(true);
+                new FormEliminarCamino(almacenes).setVisible(true);
             }
             else
             {
@@ -448,7 +413,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
     private javax.swing.JMenu menuAlmacenes;
     private javax.swing.JMenuItem menuAlmacenesAgregar;
     private javax.swing.JMenuItem menuAlmacenesEliminar;
-    private javax.swing.JMenuItem menuAlmacenesModificar;
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenuItem menuArchivoCerrar;
     private javax.swing.JMenu menuAyuda;
@@ -456,7 +420,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
     private javax.swing.JMenu menuCaminos;
     private javax.swing.JMenuItem menuCaminosAgregar;
     private javax.swing.JMenuItem menuCaminosEliminar;
-    private javax.swing.JMenuItem menuCaminosModificar;
     private javax.swing.JMenuItem menuCaminosVer;
     private javax.swing.JMenuItem menuHerramientaCalcularRutaOptima;
     private javax.swing.JMenu menuHerramientas;
@@ -482,8 +445,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
         Almacen almacen;
         String id =" ",
                nombre = " ",
-               caminos =" ",
-               tiempos = " ",
                aislado = " ";
         
         LocalTime horaInicio = null;
@@ -493,11 +454,11 @@ public class FormAlmacenes extends javax.swing.JFrame {
                 almacen = almacenes.getLista().Obtener(i);
                 
                 id = almacen.getID();
-                nombre = almacen.getNombre();
+                nombre = almacen.getCiudad();
                 horaInicio = (LocalTime)almacen.getHoraDeApertura();
                 
             
-            model.addRow(new Object[]{i+1, id, nombre, horaInicio, caminos, tiempos, aislado});
+            model.addRow(new Object[]{i+1, id, nombre, horaInicio, aislado});
         }
     }
     

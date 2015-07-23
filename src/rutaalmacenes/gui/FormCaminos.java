@@ -5,6 +5,13 @@
  */
 package rutaalmacenes.gui;
 
+import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import rutaalmacenes.logic.*;
+
+
 /**
  *
  * @author Seelee
@@ -14,10 +21,19 @@ public class FormCaminos extends javax.swing.JFrame {
     /**
      * Creates new form FormCaminos
      */
-    public FormCaminos() {
+    private Grafo grafo;
+    
+    
+    public FormCaminos(Grafo grafo) throws Exception {
+        this.grafo=grafo;
         initComponents();
+        aplicarFormatoGrid();
+        
         aplicarFormatos();
-
+        AyudaGUI.llenarComboBox(cbAlmacen,  grafo);
+        
+       updateGrid(tablaCaminos, grafo, (Almacen)cbAlmacen.getSelectedItem());
+       
     }
     
     private void aplicarFormatos()
@@ -35,32 +51,22 @@ public class FormCaminos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         cbAlmacen = new javax.swing.JComboBox();
         lbAlmacen = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        tablaCaminos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Caminos");
 
         cbAlmacen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAlmacen.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbAlmacenItemStateChanged(evt);
+            }
+        });
 
         lbAlmacen.setText("Almacen");
         lbAlmacen.setToolTipText("");
@@ -73,8 +79,8 @@ public class FormCaminos extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(lbAlmacen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,7 +92,7 @@ public class FormCaminos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCaminos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -97,7 +103,7 @@ public class FormCaminos extends javax.swing.JFrame {
                 "#", "Identificador", "Destino", "Duracion"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tablaCaminos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -128,49 +134,61 @@ public class FormCaminos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void cbAlmacenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAlmacenItemStateChanged
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormCaminos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormCaminos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormCaminos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormCaminos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            // TODO add your handling code here:
+            updateGrid(tablaCaminos, grafo, (Almacen)cbAlmacen.getSelectedItem());
+        } catch (Exception ex) {
+            Logger.getLogger(FormCaminos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_cbAlmacenItemStateChanged
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormCaminos().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbAlmacen;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lbAlmacen;
+    private javax.swing.JTable tablaCaminos;
     // End of variables declaration//GEN-END:variables
+
+public void updateGrid(javax.swing.JTable tabla, Grafo<Almacen> almacenes, Almacen almacen) throws Exception
+    {
+        DefaultTableModel model;
+        model = (DefaultTableModel) tabla.getModel();
+        model.setRowCount(0);
+        ListaSE<NodoAP> adyacentes=almacenes.VerticesAdyacentes(almacen);
+       
+        for (int i = 0; i < adyacentes.Longitud(); i++) {
+            updateGridLine(almacenes, adyacentes,model,i );
+        }
+    }
+   
+    private void updateGridLine(Grafo<Almacen> almacenes, ListaSE<NodoAP> caminos, DefaultTableModel model, int i ) throws Exception
+    {
+        Almacen almacen;
+       
+        if (caminos!=null)
+        {
+            almacen=almacenes.getLista().Obtener(caminos.Obtener(i).getAdyacenciaNodo());
+           
+            String id=almacen.getID();
+            String destino=almacen.getCiudad();
+            LocalTime tiempoRecorrido = caminos.Obtener(i).getTiempoRecorrido();
+            model.addRow(new Object[]{i+1, id, destino, tiempoRecorrido});
+        }
+    }
+    
+    private void aplicarFormatoGrid()
+    {
+        // se reduce y se el tamano del ancho de la columna a 30 bajo la 
+        // suposicion que no nunca se excederan los numero de 3 digitos 
+        javax.swing.table.TableColumn columnaNumero = tablaCaminos.getColumnModel().getColumn(0);
+        columnaNumero.setMaxWidth(30);
+        columnaNumero.setMinWidth(30);
+
+    }
+
 }

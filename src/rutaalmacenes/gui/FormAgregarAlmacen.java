@@ -92,7 +92,7 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
 
         jsMomento.setModel(new javax.swing.SpinnerListModel(new String[] {"AM", "PM"}));
 
-        cbCiudad.setModel(new DefaultComboBoxModel(CiudadesSantoDomingo.values()));
+        cbCiudad.setModel(new DefaultComboBoxModel(CiudadesRD.values()));
         cbCiudad.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -179,7 +179,12 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
             
             if (jsMomento.getValue() == "PM") {
                 hora += 12;
+                if (hora==24 && minutos>0) {
+                    hora = 0;
+                }
             }
+            
+            
             
             Almacen a;
             a = new Almacen(

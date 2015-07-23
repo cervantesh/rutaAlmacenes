@@ -9,7 +9,7 @@ package rutaalmacenes.logic;
  *
  * @author Seelee
  */
-public enum CiudadesSantoDomingo {
+public enum CiudadesRD {
 
     SANTO_DOMINGO_DE_GUZMAN("Santo Domingo de Guzmán"),
     SANTIAGO_DE_LOS_CABALLEROS("Santiago de los Caballeros"),
@@ -77,7 +77,7 @@ public enum CiudadesSantoDomingo {
 
     private final String ciudad;
 
-    CiudadesSantoDomingo(String ciudad)
+    CiudadesRD(String ciudad)
     {
         this.ciudad = ciudad;
     }

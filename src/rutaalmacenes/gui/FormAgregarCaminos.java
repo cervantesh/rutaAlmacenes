@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package rutaalmacenes.gui;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -85,9 +86,9 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
 
         cbDestino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jsHora.setModel(new javax.swing.SpinnerNumberModel(1, 1, 80, 1));
+        jsHora.setModel(new javax.swing.SpinnerNumberModel(0, 0, 80, 1));
 
-        jsMinutos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+        jsMinutos.setModel(new javax.swing.SpinnerNumberModel(1, 0, 59, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,11 +131,11 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
                     .addComponent(lbDestino)
                     .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbHoraInicio)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jsHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jsMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jsMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbHoraInicio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -156,14 +157,23 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
         
         if(validarAgregarCamino(this.grafo, cbInicio.getSelectedItem(), cbDestino.getSelectedItem()))
         {
-            JOptionPane.showMessageDialog(rootPane, "Almacen Agregado Exitosamente");
+            try
+            {
+                grafo.InsertarArco((Almacen)cbInicio.getSelectedItem(), 
+                        (Almacen)cbDestino.getSelectedItem(), 
+                        LocalTime.of((int)jsHora.getValue(), (int)jsMinutos.getValue()));
+            } catch (Exception ex)
+            {
+                JOptionPane.showMessageDialog(rootPane, "Error, intente otro camino");
+            }
+            JOptionPane.showMessageDialog(rootPane, "Camino Agregado Exitosamente");
             this.dispose();
         }
         
         
     }//GEN-LAST:event_btnAgregarActionPerformed
     
-    private void llenarComboBoxesForm(javax.swing.JComboBox jc1,javax.swing.JComboBox jc2, Grafo grafo) throws Exception
+    public static void llenarComboBoxesForm(javax.swing.JComboBox jc1,javax.swing.JComboBox jc2, Grafo grafo) throws Exception
     {
         AyudaGUI.llenarComboBox(jc1,  grafo);
         AyudaGUI.llenarComboBox(jc2,  grafo);
@@ -172,7 +182,7 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
     private boolean validarAgregarCamino(Grafo grafo, Object a1, Object a2)
     {
         try {
-            if (grafo.EstaElArco(a1, a2)) {
+            if (grafo.EstaElArco((Almacen)a1, (Almacen)a2)) {
                 JOptionPane.showMessageDialog(rootPane, "Existe el Camino");
                 return false; 
             }
@@ -181,7 +191,11 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
             Logger.getLogger(FormAgregarCaminos.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        if (a1.equals(a2)) {
+            JOptionPane.showMessageDialog(rootPane, "No puede insertar camino sobre el mismo vertice");
+            return false; 
+        }
+
         return true;
     }
     
