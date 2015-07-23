@@ -5,66 +5,33 @@
  */
 package rutaalmacenes.logic;
 
+
+
 /**
  *
  * @author Seelee
  */
-public class Dijkstra {
-    public static void calcularCamino(Vertice source)
+public class Dijkstra<T >{
+    public void calcularCamino(Vertice source)
     {
-        //source.setPesoMin();
-        HeapPrioridad<Vertice> heapDeVertices;
-        
-        heapDeVertices = new HeapPrioridad<>();
-        heapDeVertices.insertar(source);
-        
-        while(!heapDeVertices.esVacio()){
-            Vertice u;
-            u = heapDeVertices.obtenerPrimero();
-            
-            
-            for (NodoAP nodo: u. ) {
-                
-            }
-            
-        }
-        ////De aqui para abajo es el codigo viejo
-        source.minDistance = 0.;
-        PriorityQueue<Vertice> vertexQueue = new PriorityQueue<Vertice>();
-	vertexQueue.add(source);
-
-	while (!vertexQueue.isEmpty()) {
-	    Vertice u = vertexQueue.poll();
-
-            // Visit each edge exiting u
-            for (Edge e : u.adjacencies)
-            {
-                Vertice v = e.target;
-                double weight = e.weight;
-                double distanceThroughU = u.pesoMin + weight;
-		if (distanceThroughU < v.pesoMin) {
-		    vertexQueue.remove(v);
-
-		    v.pesoMin = distanceThroughU ;
-		    v.previous = u;
-		    vertexQueue.add(v);
-		}
-            }
-        }
+        HeapPrioridad<Vertice> heapPrioridad;
         
     }
 
-    public static ListaSE<Vertice> getCaminoMasCorto(Vertice objetivo)
+    public static ListaSE<Vertice> getCaminoMasCorto(Vertice objetivo) throws Exception
     {
        
         ListaSE<Vertice> camino = new ListaSE<>();
         for (Vertice vertice = objetivo; vertice != null; vertice = vertice.getAnterior())
             camino.Adicionar(vertice); 
-
-        //Collections.reverse(path);
-        return camino;
+        
+        return camino.InvertirLista();
         
     }
+    
+    
+
+   
 
     public static void main(String[] args)
     {
