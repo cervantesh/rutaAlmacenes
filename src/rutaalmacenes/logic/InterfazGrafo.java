@@ -5,6 +5,8 @@
  */
 package rutaalmacenes.logic;
 
+import java.time.LocalTime;
+
 /**
  *
  * @author CDJ
@@ -17,7 +19,7 @@ public interface InterfazGrafo<T> {
     boolean EstaElVertice(T v) throws Exception;
     boolean EstaElArco(T v1, T v2) throws Exception;
     void InsertarVertice(T v)throws Exception;
-    void InsertarArco(T v1, T v2) throws Exception;
+    void InsertarArco(T v1, T v2, LocalTime time) throws Exception;
     void EliminarVertice(T v) throws Exception;
     void EliminarArco(T v1, T v2) throws Exception;
     void ReemplazarVertice(T v1, T v2) throws Exception;

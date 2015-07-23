@@ -12,16 +12,16 @@ import java.time.LocalTime;
  *
  * @author CDJ
  */
-public class Almacen
+public class Almacen<T> extends Vertice
 {
     private String id;
-    private String nombre;
-    private LocalTime horaDeApertura;
+    private String ciudad;
+    private T horaDeApertura;
 
-    public Almacen(String ID, String nombre, LocalTime horaDeApertura) //
+    public Almacen(String ID, String nombre, T horaDeApertura) //
     {
         this.id = ID;
-        this.nombre = nombre;
+        this.ciudad = nombre;
         this.horaDeApertura = horaDeApertura;
     }
 
@@ -32,10 +32,10 @@ public class Almacen
 
     public String getNombre()
     {
-        return nombre;
+        return ciudad;
     }
 
-    public LocalTime getHoraDeApertura()
+    public T getHoraDeApertura()
     {
         return horaDeApertura;
     }
@@ -43,7 +43,14 @@ public class Almacen
     @Override
     public String toString()
     {
-        return "ID: " + id + ". " + nombre + ". Hora de apertura: " + horaDeApertura;
+        return "ID: " + id + "  Ciudad: " + ciudad + "  Hora Inicio:  " + horaDeApertura;
+    } 
+    
+    @Override
+    public boolean equals(Object obj) {
+        Almacen almacen = (Almacen) obj;
+        return this.id.equals(almacen.id) && this.ciudad.equals(almacen.ciudad);
+        
     }
     
 }

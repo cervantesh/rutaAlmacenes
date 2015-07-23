@@ -1,6 +1,8 @@
 
 package rutaalmacenes.logic;
 
+import java.time.LocalTime;
+
 /**
  *
  * @author CDJ
@@ -9,21 +11,19 @@ package rutaalmacenes.logic;
 public class Grafo<T> implements InterfazGrafo<T> {
     
     private ListaSE<T> lista;
-
-    
-    private ListaSE<ListaSE<Integer>> adyacencia;
+    private ListaSE<ListaSE<NodoAP>> adyacencia;
     
     public ListaSE<T> getLista() {
         return lista;
     }
 
-    public ListaSE<ListaSE<Integer>> getAdyacencia() {
+    public ListaSE<ListaSE<NodoAP>> getAdyacencia() {
         return adyacencia;
     }
     
     public Grafo() {
         lista =  new ListaSE<T>();
-        adyacencia = new ListaSE<ListaSE<Integer>>();
+        adyacencia = new ListaSE<ListaSE<NodoAP>>();
     }
 
     protected int PosicionDelVertice(T v) throws Exception {
@@ -62,9 +62,9 @@ public class Grafo<T> implements InterfazGrafo<T> {
         int p2 = PosicionDelVertice(v2);
         if ((p1 != -1)&&(p2 != -1))
         {
-            ListaSE<Integer> adyac = adyacencia.Obtener(p1);
+            ListaSE<NodoAP> adyac = adyacencia.Obtener(p1);
             for(int i = 0; i < adyac.Longitud(); i++)
-                if (adyac.Obtener(i).equals(p2))
+                if (adyac.Obtener(i).getAdyacenciaNodo().equals(p2))
                     return true;
            
         }
@@ -76,23 +76,30 @@ public class Grafo<T> implements InterfazGrafo<T> {
         if(!EstaElVertice(v))
         {
             lista.Adicionar(v);
-	adyacencia.Adicionar(new ListaSE<Integer>());
+	adyacencia.Adicionar(new ListaSE<NodoAP>());
+        }
+        else
+        {
+            throw new Exception("El elemento ya Existe");
         }
     }
     
     @Override
-    public void InsertarArco(T v1, T v2) throws Exception //, método de Liango
+    public void InsertarArco(T v1, T v2, LocalTime time) throws Exception
     {
         int p1 = PosicionDelVertice(v1);
         int p2 = PosicionDelVertice(v2);
+        NodoAP node1= new NodoAP(PosicionDelVertice(v1), time);
+        NodoAP node2= new NodoAP(PosicionDelVertice(v2), time);
+        
         if ((p1 != -1)&&(p2 != -1)&&(!EstaElArco(v1,v2)))
         {
-            ListaSE<Integer> adyac = adyacencia.Obtener(p1);
-            adyac.Adicionar(p2);
+            ListaSE<NodoAP> adyac = adyacencia.Obtener(p1);
+            adyac.Adicionar(node2);
             if( p1 != p2 )
             {
                 adyac = adyacencia.Obtener(p2);
-                adyac.Adicionar(p1);
+                adyac.Adicionar(node1);
             }
         }
         else    
@@ -105,12 +112,9 @@ public class Grafo<T> implements InterfazGrafo<T> {
         int p = PosicionDelVertice(v);
         if (p != -1)
         {
-            ListaSE<Integer> adyac = adyacencia.Obtener(p);
+            ListaSE<NodoAP> adyac = adyacencia.Obtener(p);
             for(int i = 0; i < lista.Longitud(); i++)
             {
-                /*Validacion agregada, antes lanzaba excepcion si no habia caminos, 
-                si habia un bucle o era el ultimo vertice.
-                */
                 if(!adyac.EsVacia() && EstaElArco(v, lista.Obtener(i)))
                     EliminarArco(v, lista.Obtener(i));                
             }
@@ -118,7 +122,7 @@ public class Grafo<T> implements InterfazGrafo<T> {
             adyacencia.Eliminar(p);
             lista.Eliminar(p);
             
-            int aux;
+            NodoAP aux;
             
             for(int i = 0; i < adyacencia.Longitud(); i++)
             {
@@ -126,11 +130,17 @@ public class Grafo<T> implements InterfazGrafo<T> {
                 for(int j = 0; j < adyac.Longitud(); j++) {
                     aux = adyac.Obtener(0);
                     adyac.Eliminar(0);
-                    if(aux > p) {
-                        adyac.Adicionar(aux-1);
+                    if(aux.getAdyacenciaNodo() > p) 
+                    {
+                        NodoAP nodeAuxMinor=new NodoAP(aux.getAdyacenciaNodo()-1, aux.getTiempoRecorrido());
+                        
+                        adyac.Adicionar(nodeAuxMinor);//aux-1
                     }
-                    else{
-                        adyac.Adicionar(aux);
+                    else
+                    {
+                        NodoAP nodeAux=new NodoAP(aux.getAdyacenciaNodo(), aux.getTiempoRecorrido());
+                        
+                        adyac.Adicionar(nodeAux);//aux
                     }
                 }
             }
@@ -145,14 +155,14 @@ public class Grafo<T> implements InterfazGrafo<T> {
         int p2 = PosicionDelVertice(v2);
         if ((p1 != -1)&&(p2 != -1)&&(EstaElArco(v1,v2)))
         {
-            ListaSE<Integer> adyac = adyacencia.Obtener(p1);
+            ListaSE<NodoAP> adyac = adyacencia.Obtener(p1);
             for(int i = 0; i < adyac.Longitud(); i++)
-                if(adyac.Obtener(i) == p2)
+                if(adyac.Obtener(i).getAdyacenciaNodo() == p2)
                     adyac.Eliminar(i);
             
             adyac = adyacencia.Obtener(p2);
             for(int i = 0; i < adyac.Longitud(); i++)
-                if(adyac.Obtener(i) == p1)
+                if(adyac.Obtener(i).getAdyacenciaNodo() == p1)
                     adyac.Eliminar(i);
         }
         else    
@@ -190,14 +200,14 @@ public class Grafo<T> implements InterfazGrafo<T> {
           for(int k = 0; k < lista.Longitud(); k++)
           { 
              for(int i = 0; i < aux.Longitud(); i++) {
-               ListaSE<Integer> adyac = adyacencia.Obtener(aux.Obtener(i)); 
+               ListaSE<NodoAP> adyac = adyacencia.Obtener(aux.Obtener(i)); 
                for(int j = 0; j < adyac.Longitud(); j++)
                {
-                  if(!visitado[adyac.Obtener(j)])
+                  if(!visitado[adyac.Obtener(j).getAdyacenciaNodo()])
                   {
-                     aux.Adicionar(adyac.Obtener(j));
-                     result.Adicionar(lista.Obtener(adyac.Obtener(j)));
-                     visitado[adyac.Obtener(j)] = true;
+                     aux.Adicionar(adyac.Obtener(j).getAdyacenciaNodo());
+                     result.Adicionar(lista.Obtener(adyac.Obtener(j).getAdyacenciaNodo()));
+                     visitado[adyac.Obtener(j).getAdyacenciaNodo()] = true;
                   }
                }
              }
@@ -220,11 +230,11 @@ public class Grafo<T> implements InterfazGrafo<T> {
         for(int i = 0; i < lista.Longitud(); i++) 
            g.lista.Adicionar(lista.Obtener(i));
         
-        ListaSE<Integer> aux;   
+        ListaSE<NodoAP> aux;   
         for(int i = 0; i < lista.Longitud(); i++) 
         {
-            aux = new ListaSE<Integer>();
-           ListaSE<Integer> adyac = adyacencia.Obtener(aux.Obtener(i));
+            aux = new ListaSE<NodoAP>();
+           ListaSE<NodoAP> adyac = adyacencia.Obtener(aux.Obtener(i).getAdyacenciaNodo());
            
            for(int j = 0; j < adyac.Longitud(); j++) 
               aux.Adicionar(adyac.Obtener(j));
@@ -272,13 +282,13 @@ public class Grafo<T> implements InterfazGrafo<T> {
     @Override
     public ListaSE<T> Adyacentes(T v) throws Exception {
         ListaSE<T> result = new ListaSE<T>();
-        ListaSE<Integer> adyacentes = adyacencia.Obtener(PosicionDelVertice(v));
+        ListaSE<NodoAP> adyacentes = adyacencia.Obtener(PosicionDelVertice(v));
         for(int i=0;i<adyacentes.Longitud();i++)
-            result.Adicionar(lista.Obtener(adyacentes.Obtener(i)));
+            result.Adicionar(lista.Obtener(adyacentes.Obtener(i).getAdyacenciaNodo()));
         return result;
     }
     
-    public void MostrarGrafo() throws Exception //
+    public void MostrarGrafo() throws Exception
     {
         for (int i=0; i<lista.Longitud(); i++)
         {
@@ -290,12 +300,58 @@ public class Grafo<T> implements InterfazGrafo<T> {
             
                 for(int j=0; j<adyacencia.Obtener(i).Longitud(); j++)
                 {
-                    String msg=lista.Obtener(adyacencia.Obtener(i).Obtener(j)).toString();
-                    System.out.println("\t" + msg);
+                    String msg=lista.Obtener(adyacencia.Obtener(i).Obtener(j).getAdyacenciaNodo()).toString();
+                    System.out.println("\t" + msg + ". Tiempo de recorrido: " + adyacencia.Obtener(i).Obtener(j).getTiempoRecorrido());
                 }
             }
             else
                 System.out.println("  No tiene almacenes adyacentes");
         }
     }
+    
+    public boolean ExistenArcos() throws Exception
+    {
+        return NumeroDeArcos() > 0; 
+    }
+    
+    public ListaSE<NodoAP> VerticesAdyacentes(T v) throws Exception //Retorna lista de vertices adyacentes
+    {
+        int p1=PosicionDelVertice(v);
+        ListaSE<NodoAP> result= new ListaSE<>();
+        
+        if(p1!=-1)
+        {
+            ListaSE<NodoAP> adyac=adyacencia.Obtener(p1);
+            for(int i=0; i<adyac.Longitud(); i++)
+            {
+                result.Adicionar(adyac.Obtener(i));
+            }
+        }
+        return result;
+    }
+    
+    public NodoAP VerticeMenorRecorrido(T v) throws Exception//Retorna vértice de menor recorrido de lista de adyacentes
+    {
+        ListaSE<NodoAP> adyacentes=VerticesAdyacentes(v);
+        
+        NodoAP menor=adyacentes.Obtener(0);
+        for(int i=1; i<adyacentes.Longitud(); i++)
+        {
+            if(adyacentes.Obtener(i).getTiempoRecorrido().isBefore(menor.getTiempoRecorrido()))
+                menor=adyacentes.Obtener(i);
+        }
+        
+        return menor;
+    }
+    
+//    public T VerticeMenorHoraApertura(T v) throws Exception
+//    {
+//        ListaSE<NodoAP> adyacentes=VerticesAdyacentes(v);
+//        
+//        T menor=lista.Obtener(adyacentes.Obtener(0).getAdyacenciaNodo());
+//        
+//        
+//        
+//        return menor;
+//    }
 }

@@ -21,19 +21,40 @@ public class FormAlmacenes extends javax.swing.JFrame {
      * Creates new form FormAlmacenes
      */
     
-    /**
-     * Aqui se guardaran todos los almacenes
-     */
     private Grafo <Almacen> almacenes;
-    
     
     public FormAlmacenes() {
         initComponents();
         aplicarFormatos();
         
         almacenes = new Grafo<>();
+        try {
+            insertarAlmacen("001",CiudadesSantoDomingo.BANÍ.toString(),8,0);
+            insertarAlmacen("002",CiudadesSantoDomingo.BAYAGUANA.toString(),7,15);
+            insertarAlmacen("003",CiudadesSantoDomingo.LAS_MATAS_DE_FARFÁN.toString(),15,0);
+
+        } catch (Exception ex) {
+            Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
              
     }
+    
+    
+    
+    private void insertarAlmacen(String id,String ciudad ,int h,int m) throws Exception
+    {
+        this.almacenes.InsertarVertice(
+        new Almacen(
+                    id,
+                    ciudad,
+                    LocalTime.of(h, m)
+            )
+        );
+    }
+    
     
     private void aplicarFormatos()
     {
@@ -44,6 +65,8 @@ public class FormAlmacenes extends javax.swing.JFrame {
     
     private void aplicarFormatoGrid()
     {
+        // se reduce y se el tamano del ancho de la columna a 30 bajo la 
+        // suposicion que no nunca se excederan los numero de 3 digitos 
         javax.swing.table.TableColumn columnaNumero = tablaAlmacenes.getColumnModel().getColumn(0);
         columnaNumero.setMaxWidth(30);
         columnaNumero.setMinWidth(30);
@@ -102,7 +125,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "#", "Identificador", "Nombre", "Hora Inicio", "Caminos", "Tiempo", "Aislado"
+                "#", "Identificador", "Ciudad", "Hora Inicio", "Caminos", "Tiempo", "Aislado"
             }
         ) {
             Class[] types = new Class [] {
@@ -247,7 +270,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +292,15 @@ public class FormAlmacenes extends javax.swing.JFrame {
 
     private void menuCaminosAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosAgregarActionPerformed
         // TODO add your handling code here:
-        new FormAgregarCaminos().setVisible(true);
+        if (validarAgregarCamino(almacenes)) {
+            new FormAgregarCaminos(almacenes).setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "Para agregar caminos debe ingresar al menos dos almacenes");
+        }
+        
     }//GEN-LAST:event_menuCaminosAgregarActionPerformed
 
     private void menuAlmacenesAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesAgregarActionPerformed
@@ -278,18 +309,44 @@ public class FormAlmacenes extends javax.swing.JFrame {
     }//GEN-LAST:event_menuAlmacenesAgregarActionPerformed
 
     private void menuAlmacenesModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesModificarActionPerformed
-        // TODO add your handling code here:
-        new FormModificarAlmacen().setVisible(true);
+        if (validarModificarNodo(almacenes)) {
+            new FormModificarAlmacen().setVisible(true);
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(rootPane, 
+                     "Debe ingresar al menos un almacen para realizar modificaciones");
+        }
+        
     }//GEN-LAST:event_menuAlmacenesModificarActionPerformed
 
     private void menuAlmacenesEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlmacenesEliminarActionPerformed
-        // TODO add your handling code here:
-        new FormEliminarAlmacen().setVisible(true);
+        
+        if (validarEliminarNodo(almacenes)) {
+            new FormEliminarAlmacen().setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "No existen almacenes");
+        }
     }//GEN-LAST:event_menuAlmacenesEliminarActionPerformed
 
     private void menuCaminosModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosModificarActionPerformed
-        // TODO add your handling code here:
-        new FormModificarCaminos().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            if (validarModificarCamino(almacenes)) {
+                new FormModificarCaminos().setVisible(true);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rootPane,
+                        "No existen caminos para modificar");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_menuCaminosModificarActionPerformed
 
     private void menuCaminosVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosVerActionPerformed
@@ -303,8 +360,21 @@ public class FormAlmacenes extends javax.swing.JFrame {
     }//GEN-LAST:event_menuAyudaCreditosActionPerformed
 
     private void menuCaminosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCaminosEliminarActionPerformed
-        // TODO add your handling code here:
-        new FormEliminarCamino().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            if (validarEliminarCamino(almacenes)) {
+                new FormEliminarCamino().setVisible(true);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rootPane,
+                        "No existen caminos para eliminar");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_menuCaminosEliminarActionPerformed
 
     private void tablaAlmacenesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tablaAlmacenesFocusLost
@@ -369,43 +439,8 @@ public class FormAlmacenes extends javax.swing.JFrame {
         });
     }
     
-    static public void updateGrid(javax.swing.JTable tabla, Grafo<Almacen> almacenes) throws Exception
-    {
-        DefaultTableModel model;
-        model = (DefaultTableModel) tabla.getModel();
-        model.setRowCount(0);
-        
-        for (int i = 0; i < almacenes.getLista().Longitud(); i++) {
-            updateGridLine( almacenes,model,i );
-        }
- 
-    }
     
     
-    static private void updateGridLine(Grafo<Almacen> almacenes, DefaultTableModel model, int i ) throws Exception
-    {
-        Almacen almacen;
-        String id =" ",
-               nombre = " ",
-               caminos =" ",
-               tiempos = " ",
-               aislado = " ";
-        
-        LocalTime horaInicio = null;
-        
-        if (almacenes!=null) {
-
-                almacen = almacenes.getLista().Obtener(i);
-                
-                id = almacen.getID();
-                nombre = almacen.getNombre();
-                horaInicio = almacen.getHoraDeApertura();
-                
-            
-            model.addRow(new Object[]{i+1, id, nombre, horaInicio, caminos, tiempos, aislado});
-        }
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -427,5 +462,75 @@ public class FormAlmacenes extends javax.swing.JFrame {
     private javax.swing.JMenu menuHerramientas;
     public static javax.swing.JTable tablaAlmacenes;
     // End of variables declaration//GEN-END:variables
+
     
+    
+    static public void updateGrid(javax.swing.JTable tabla, Grafo<Almacen> almacenes) throws Exception
+    {
+        DefaultTableModel model;
+        model = (DefaultTableModel) tabla.getModel();
+        model.setRowCount(0);
+        
+        for (int i = 0; i < almacenes.getLista().Longitud(); i++) {
+            updateGridLine( almacenes,model,i );
+        }
+ 
+    }
+    
+    static private void updateGridLine(Grafo<Almacen> almacenes, DefaultTableModel model, int i ) throws Exception
+    {
+        Almacen almacen;
+        String id =" ",
+               nombre = " ",
+               caminos =" ",
+               tiempos = " ",
+               aislado = " ";
+        
+        LocalTime horaInicio = null;
+        
+        if (almacenes!=null) {
+
+                almacen = almacenes.getLista().Obtener(i);
+                
+                id = almacen.getID();
+                nombre = almacen.getNombre();
+                horaInicio = (LocalTime)almacen.getHoraDeApertura();
+                
+            
+            model.addRow(new Object[]{i+1, id, nombre, horaInicio, caminos, tiempos, aislado});
+        }
+    }
+    
+    private boolean validarAgregarCamino(Grafo grafo)
+    {
+        return grafo.getLista().Longitud() > 1;
+    }
+    
+    private boolean validarModificarNodo(Grafo grafo)
+    {
+        return !grafo.EsVacio();
+    }
+    
+    private boolean validarEliminarNodo(Grafo grafo)
+    {
+        return !grafo.EsVacio();
+    }
+    
+    private boolean validarModificarCamino(Grafo grafo) throws Exception {
+        if (!validarAgregarCamino(grafo)|| !grafo.ExistenArcos()) {
+            
+            return false;
+        }
+        
+        return true;
+        
+    }
+
+    private boolean validarEliminarCamino(Grafo grafo) throws Exception {
+        if (!grafo.ExistenArcos()) {
+            return false;
+        }
+        
+        return true;
+    }
 }
