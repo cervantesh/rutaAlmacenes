@@ -14,31 +14,22 @@ package rutaalmacenes.logic;
  * @param <T>
  */
 
-
 public class HeapPrioridad <T extends Comparable<T>> implements  ColaPrioridad<T>{
 
     private T [] vector;
-    
     private int tamanoactual;
-
-    
     private static final int CAPACIDAD = 15;
     
-    /**
-     *
-     */
     public HeapPrioridad()
     {
         this.tamanoactual = 0;
         this.obtenerVector(HeapPrioridad.CAPACIDAD);
     }
       
-    
     private void obtenerVector(int nuevoTamano)
     {
         this.vector = (T[]) new Comparable [nuevoTamano + 1];
     }
-    
     
     private void comprobarTamano()
     {
@@ -55,7 +46,6 @@ public class HeapPrioridad <T extends Comparable<T>> implements  ColaPrioridad<T
     
     private void hundir(int hueco)
     {
-        
         //o que el vector llegue al final 
         
         boolean bandera = true;
@@ -78,20 +68,12 @@ public class HeapPrioridad <T extends Comparable<T>> implements  ColaPrioridad<T
                 vector[hueco]=temp;
             }
         }
-        
-        
-        
     }
     
-    /**
-     *
-     * @param x
-     */
     @Override
     public void insertar(T x) {
         comprobarTamano();
         int hueco = this.tamanoactual++;
-        
 
         while (hueco > 0 && x.compareTo(vector[hueco/2])<0) 
         {            
@@ -102,19 +84,11 @@ public class HeapPrioridad <T extends Comparable<T>> implements  ColaPrioridad<T
         vector[hueco] = x;
     }
    
-    /**
-     *
-     * @return
-     */
     @Override
     public T obtenerPrimero() {
         return vector[1];
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public T eliminar() {
         T min = obtenerPrimero();
@@ -124,49 +98,24 @@ public class HeapPrioridad <T extends Comparable<T>> implements  ColaPrioridad<T
         vector[1] = vector[tamanoactual--];
         hundir(1);
         
-        
-        
         return min;
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public boolean esVacio() {
         return this.tamanoactual == 0;
    }
     
-    /**
-     *
-     * @return
-     */
     public T[] getVector() {
         return vector;
     }
     
-    /**
-     *
-     * @return
-     */
     public int getTamanoactual() {
         return tamanoactual;
     }
     
-    /**
-     *
-     * @param i
-     * @return
-     */
     public T getMiembro(int i)
     {
         return vector[i];
     }
-    
-
-   
-
-
-    
 }

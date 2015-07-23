@@ -12,7 +12,7 @@ import rutaalmacenes.logic.*;
 
 /**
  *
- * @author Seelee
+ * @author CDJ
  */
 public class FormAgregarCaminos extends javax.swing.JFrame {
 
@@ -31,7 +31,6 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(FormAgregarCaminos.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     
     private void aplicarFormatos()
@@ -169,8 +168,6 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Camino Agregado Exitosamente");
             this.dispose();
         }
-        
-        
     }//GEN-LAST:event_btnAgregarActionPerformed
     
     public static void llenarComboBoxesForm(javax.swing.JComboBox jc1,javax.swing.JComboBox jc2, Grafo grafo) throws Exception
@@ -199,12 +196,6 @@ public class FormAgregarCaminos extends javax.swing.JFrame {
         return true;
     }
     
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JComboBox cbDestino;

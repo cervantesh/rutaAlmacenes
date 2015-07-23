@@ -23,20 +23,16 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
      */
     Grafo grafo;
     
-    
     public FormAgregarAlmacen(Grafo grafo) {
         initComponents();
         aplicarFormatos();
         this.grafo = grafo;
-        
     }
     
     private void aplicarFormatos()
     {
         setLocationRelativeTo(null);  
     }
-    
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -184,8 +180,6 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
                 }
             }
             
-            
-            
             Almacen a;
             a = new Almacen(
                     tfIdentificador.getText(),
@@ -213,8 +207,6 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCiudadActionPerformed
     
-    
-    
     //Metodos CDJ
     private boolean esValidaEntradaDatos(String tfIdentificador)
     {
@@ -235,11 +227,6 @@ public class FormAgregarAlmacen extends javax.swing.JFrame {
         
         return true;
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

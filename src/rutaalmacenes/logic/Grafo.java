@@ -15,7 +15,7 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
     
     /**
      *
-     * @return
+     * @return lista de vértices
      */
     public ListaSE<T> getLista() {
         return lista;
@@ -23,15 +23,12 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
 
     /**
      *
-     * @return
+     * @return lista de adyacencias
      */
     public ListaSE<ListaSE<NodoAP>> getAdyacencia() {
         return adyacencia;
     }
     
-    /**
-     *
-     */
     public Grafo() {
         lista =  new ListaSE<T>();
         adyacencia = new ListaSE<ListaSE<NodoAP>>();
@@ -39,8 +36,8 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
 
     /**
      *
-     * @param v
-     * @return
+     * @param v vértice al que se le busca la posición
+     * @return posición del vértice en el grafo
      * @throws Exception
      */
     protected int PosicionDelVertice(T v) throws Exception {
@@ -52,7 +49,7 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
      
     /**
      *
-     * @return
+     * @return true si el  grafo está vacío
      */
     @Override
     public boolean EsVacio() {
@@ -61,7 +58,7 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
 
     /**
      *
-     * @return
+     * @return cantidad de vértices del grafo
      */
     @Override
     public int NumeroDeVertices() {
@@ -70,7 +67,7 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
 
     /**
      *
-     * @return
+     * @return cantidad de arcos en el grafo
      * @throws Exception
      */
     @Override
@@ -84,7 +81,7 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
     /**
      *
      * @param v
-     * @return
+     * @return true si el vértice forma parte del grafo
      * @throws Exception
      */
     @Override
@@ -94,9 +91,9 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
 
     /**
      *
-     * @param v1
-     * @param v2
-     * @return
+     * @param v1 vértice 1
+     * @param v2 vértice 2
+     * @return true si el arco forma parte del grafo
      * @throws Exception
      */
     @Override
@@ -115,8 +112,8 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
     }
 
     /**
-     *
-     * @param v
+     * 
+     * @param v vértice que se inserta en el grafo
      * @throws Exception
      */
     @Override
@@ -134,9 +131,9 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
     
     /**
      *
-     * @param v1
-     * @param v2
-     * @param time
+     * @param v1 vértice 1
+     * @param v2 vértice 2
+     * @param time tiempo de recorrido entre ambos vértices
      * @throws Exception
      */
     @Override
@@ -163,11 +160,11 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
     
     /**
      *
-     * @param v
+     * @param v vértice a eliminar
      * @throws Exception
      */
     @Override
-    public void EliminarVertice(T v) throws Exception //Daniel
+    public void EliminarVertice(T v) throws Exception
     {
         int p = PosicionDelVertice(v);
         if (p != -1)
@@ -211,8 +208,8 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
 
     /**
      *
-     * @param v1
-     * @param v2
+     * @param v1 vértice 1
+     * @param v2 vértice 2
      * @throws Exception
      */
     @Override
@@ -237,8 +234,8 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
 
     /**
      *
-     * @param v1
-     * @param v2
+     * @param v1 vértice 1
+     * @param v2 vértice 2
      * @throws Exception
      */
     @Override
@@ -426,7 +423,7 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
     
     /**
      *
-     * @return
+     * @return true si el grafo tiene caminos
      * @throws Exception
      */
     public boolean ExistenArcos() throws Exception
@@ -437,7 +434,7 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
     /**
      *
      * @param v
-     * @return
+     * @return lista de vértices adyacentes de un vértice dado
      * @throws Exception
      */
     public ListaSE<NodoAP> VerticesAdyacentes(T v) throws Exception //Retorna lista de vertices adyacentes

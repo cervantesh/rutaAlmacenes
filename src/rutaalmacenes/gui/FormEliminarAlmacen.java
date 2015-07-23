@@ -11,7 +11,7 @@ import rutaalmacenes.logic.*;
 
 /**
  *
- * @author Seelee
+ * @author CDJ
  */
 public class FormEliminarAlmacen extends javax.swing.JFrame {
 
@@ -25,13 +25,11 @@ public class FormEliminarAlmacen extends javax.swing.JFrame {
         initComponents();
         aplicarFormatos();
         AyudaGUI.llenarComboBox(cbAlmacen,  grafo);
-
     }
     
     private void aplicarFormatos()
     {
         setLocationRelativeTo(null);
-                
     }
 
     /**
@@ -123,11 +121,6 @@ public class FormEliminarAlmacen extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;

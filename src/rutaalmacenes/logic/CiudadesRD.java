@@ -7,7 +7,7 @@ package rutaalmacenes.logic;
 
 /**
  *
- * @author Seelee
+ * @author CDJ
  */
 public enum CiudadesRD {
 

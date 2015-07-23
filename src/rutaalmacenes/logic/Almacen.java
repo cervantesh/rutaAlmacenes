@@ -32,7 +32,7 @@ public class Almacen<T> extends Vertice
 
     /**
      *
-     * @return
+     * @return atributo ID
      */
     public String getID()
     {
@@ -41,7 +41,7 @@ public class Almacen<T> extends Vertice
 
     /**
      *
-     * @return
+     * @return atributo ciudad
      */
     public String getCiudad()
     {
@@ -50,7 +50,7 @@ public class Almacen<T> extends Vertice
 
     /**
      *
-     * @return
+     * @return atributo horaDeApertura
      */
     public T getHoraDeApertura()
     {

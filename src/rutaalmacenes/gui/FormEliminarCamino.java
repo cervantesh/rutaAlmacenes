@@ -11,7 +11,7 @@ import rutaalmacenes.logic.*;
 
 /**
  *
- * @author Seelee
+ * @author CDJ
  */
 public class FormEliminarCamino extends javax.swing.JFrame {
 
@@ -24,13 +24,11 @@ public class FormEliminarCamino extends javax.swing.JFrame {
         initComponents();
         aplicarFormatos();
         FormAgregarCaminos.llenarComboBoxesForm(cbAlmacenInicio, cbAlmacenDestino, grafo);
-
     }
     
     private void aplicarFormatos()
     {
         setLocationRelativeTo(null);
-                
     }
 
     /**
@@ -158,7 +156,6 @@ public class FormEliminarCamino extends javax.swing.JFrame {
         //validarSalvar();
     }//GEN-LAST:event_cbAlmacenDestinoItemStateChanged
     
-
     private boolean validarEliminarCamino(Grafo grafo, Object a1, Object a2)
     {
         try {
@@ -179,11 +176,7 @@ public class FormEliminarCamino extends javax.swing.JFrame {
 
         return true;
     }
-    /**
-     * @param args the command line arguments
-     */
-   
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel btnDestino;

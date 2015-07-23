@@ -14,7 +14,7 @@ import rutaalmacenes.logic.*;
 
 /**
  *
- * @author Seelee
+ * @author CDJ
  */
 public class FormCaminos extends javax.swing.JFrame {
 
@@ -22,7 +22,6 @@ public class FormCaminos extends javax.swing.JFrame {
      * Creates new form FormCaminos
      */
     private Grafo grafo;
-    
     
     public FormCaminos(Grafo grafo) throws Exception {
         this.grafo=grafo;
@@ -33,13 +32,11 @@ public class FormCaminos extends javax.swing.JFrame {
         AyudaGUI.llenarComboBox(cbAlmacen,  grafo);
         
        updateGrid(tablaCaminos, grafo, (Almacen)cbAlmacen.getSelectedItem());
-       
     }
     
     private void aplicarFormatos()
     {
         setLocationRelativeTo(null);
-                
     }
 
     /**
@@ -188,7 +185,5 @@ public void updateGrid(javax.swing.JTable tabla, Grafo<Almacen> almacenes, Almac
         javax.swing.table.TableColumn columnaNumero = tablaCaminos.getColumnModel().getColumn(0);
         columnaNumero.setMaxWidth(30);
         columnaNumero.setMinWidth(30);
-
     }
-
 }

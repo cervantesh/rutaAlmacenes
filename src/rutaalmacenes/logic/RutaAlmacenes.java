@@ -20,7 +20,6 @@ public class RutaAlmacenes
     public static void main(String[] args) throws Exception
     {
         Grafo<Almacen> Almacenes=new Grafo<>();
-        Grafo<Almacen> alm2=new Grafo<>();
         
         LocalTime  t1, t2;
         t1 = LocalTime.of(12, 50);
@@ -60,5 +59,4 @@ public class RutaAlmacenes
         System.out.println("\nVertice de menor tiempo de recorrido en " + a1);
         System.out.println(Almacenes.getLista().Obtener(Almacenes.VerticeMenorRecorrido(a1).getAdyacenciaNodo()));
     }
-    
 }

@@ -13,7 +13,7 @@ import java.util.Objects;
  * @param <T>
  */
 
-public   class Vertice<T extends Comparable<T>> 
+public  class Vertice<T extends Comparable<T>> 
                       implements Comparable<Vertice<T>>  {
 
     private Vertice anterior;
@@ -37,7 +37,7 @@ public   class Vertice<T extends Comparable<T>>
     
     /**
      *
-     * @return
+     * @return vértice anterior
      */
     public Vertice getAnterior() {
         return anterior;
@@ -51,8 +51,6 @@ public   class Vertice<T extends Comparable<T>>
         return pesoMin;
     }
     
-  
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -74,8 +72,6 @@ public   class Vertice<T extends Comparable<T>>
         return true;
     }
 
-    
-    
     @Override
     public String toString() {
         return "Vertice{" + "anterior=" + anterior + ", pesoMin=" + pesoMin + '}';
@@ -84,12 +80,5 @@ public   class Vertice<T extends Comparable<T>>
     @Override
     public int compareTo(Vertice<T> o) {
         return pesoMin.compareTo(o.pesoMin);
-    }
-    
-    
-    
-    
-    
-    
-    
+    } 
 }

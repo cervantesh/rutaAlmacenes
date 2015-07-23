@@ -14,28 +14,9 @@ package rutaalmacenes.logic;
 
 public interface ColaPrioridad <T extends Comparable<T>> {
     
-    /**
-     *
-     * @param x
-     */
     void insertar(T x);
-
-    /**
-     *
-     * @return
-     */
     T obtenerPrimero();
-
-    /**
-     *
-     * @return
-     */
     T eliminar();
-
-    /**
-     *
-     * @return
-     */
     boolean esVacio();
     
 }

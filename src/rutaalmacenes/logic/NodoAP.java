@@ -11,14 +11,11 @@ import java.time.LocalTime;
  *
  * @author CDJ
  */
-public class NodoAP//
+public class NodoAP
 {
     private Integer adyacencia;
     private LocalTime tiempoRecorrido;
     
-    /**
-     *
-     */
     public NodoAP()
     {
         this.tiempoRecorrido=LocalTime.of(0, 0);
@@ -37,7 +34,7 @@ public class NodoAP//
     
     /**
      *
-     * @return
+     * @return posición de vértice dentro de la lista de adyacencia
      */
     public Integer getAdyacenciaNodo()
     {
@@ -46,7 +43,7 @@ public class NodoAP//
 
     /**
      *
-     * @return
+     * @return tiempo de recorrido hasta vértice
      */
     public LocalTime getTiempoRecorrido()
     {

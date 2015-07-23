@@ -15,46 +15,25 @@ public class NodoSE<T> {
 	private T dato;
 	private NodoSE <T> siguiente;
 	
-    /**
-     *
-     * @param dato
-     */
     public NodoSE(T dato)
 	{
             this.dato = dato;
             siguiente = null;
 	}
 
-    /**
-     *
-     * @return
-     */
     public T getDato() {
             return dato;
 	}
 
-    /**
-     *
-     * @param dato
-     */
     public void setDato(T dato) {
             this.dato = dato;
 	}
 
-    /**
-     *
-     * @return
-     */
     public NodoSE getSiguiente() {
             return siguiente;
 	}
 
-    /**
-     *
-     * @param siguiente
-     */
     public void setSiguiente(NodoSE siguiente) {
             this.siguiente = siguiente;
 	}
-	
 }

@@ -13,7 +13,7 @@ import rutaalmacenes.logic.*;
 
 /**
  *
- * @author Seelee
+ * @author CDJ
  */
 public class FormAlmacenes extends javax.swing.JFrame {
 
@@ -38,13 +38,7 @@ public class FormAlmacenes extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-             
     }
-    
-    
     
     private void insertarAlmacen(String id,String ciudad ,int h,int m) throws Exception
     {
@@ -57,7 +51,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
         );
     }
     private void insertarCamino(Almacen inicio, Almacen destino,int h, int m ) throws Exception{
-    
         
         almacenes.InsertarArco(inicio, 
                         destino, 
@@ -68,7 +61,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
     {
         setLocationRelativeTo(null);
         aplicarFormatoGrid();
-                
     }
     
     private void aplicarFormatoGrid()
@@ -78,7 +70,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
         javax.swing.table.TableColumn columnaNumero = tablaAlmacenes.getColumnModel().getColumn(0);
         columnaNumero.setMaxWidth(30);
         columnaNumero.setMinWidth(30);
-
     }
 
     /**
@@ -338,8 +329,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(FormAlmacenes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
     }//GEN-LAST:event_menuCaminosEliminarActionPerformed
 
     private void tablaAlmacenesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tablaAlmacenesFocusLost
@@ -404,8 +393,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
         });
     }
     
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -426,8 +413,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
     public static javax.swing.JTable tablaAlmacenes;
     // End of variables declaration//GEN-END:variables
 
-    
-    
     static public void updateGrid(javax.swing.JTable tabla, Grafo<Almacen> almacenes) throws Exception
     {
         DefaultTableModel model;
@@ -437,7 +422,6 @@ public class FormAlmacenes extends javax.swing.JFrame {
         for (int i = 0; i < almacenes.getLista().Longitud(); i++) {
             updateGridLine( almacenes,model,i );
         }
- 
     }
     
     static private void updateGridLine(Grafo<Almacen> almacenes, DefaultTableModel model, int i ) throws Exception
@@ -467,24 +451,9 @@ public class FormAlmacenes extends javax.swing.JFrame {
         return grafo.getLista().Longitud() > 1;
     }
     
-    private boolean validarModificarNodo(Grafo grafo)
-    {
-        return !grafo.EsVacio();
-    }
-    
     private boolean validarEliminarNodo(Grafo grafo)
     {
         return !grafo.EsVacio();
-    }
-    
-    private boolean validarModificarCamino(Grafo grafo) throws Exception {
-        if (!validarAgregarCamino(grafo)|| !grafo.ExistenArcos()) {
-            
-            return false;
-        }
-        
-        return true;
-        
     }
 
     private boolean validarEliminarCamino(Grafo grafo) throws Exception {

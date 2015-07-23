@@ -7,7 +7,7 @@ package rutaalmacenes.logic;
 
 /**
  *
- * @author Seelee
+ * @author CDJ
  * @param <T>
  */
 public interface  Inicializacion<T> {

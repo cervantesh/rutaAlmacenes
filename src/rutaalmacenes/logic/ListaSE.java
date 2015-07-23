@@ -15,34 +15,19 @@ public class ListaSE<T> implements InterfazLista<T>
 {
     private NodoSE<T> cabeza;
         
-    /**
-     *
-     * @return
-     */
     public NodoSE<T> getCabeza() {
             return cabeza;
-        }
-
-    /**
-     *
-     */
+    }
+    
     public ListaSE() {
             cabeza = null;
-	}
-
-    /**
-     *
-     * @return
-     */
+    }
+    
     @Override
 	public boolean EsVacia() {
             return cabeza == null;
 	}
 
-    /**
-     *
-     * @return
-     */
     @Override
 	public int Longitud() {
 		if (cabeza == null)
@@ -56,10 +41,6 @@ public class ListaSE<T> implements InterfazLista<T>
 		return cont;
 	}
 
-    /**
-     *
-     * @param objeto
-     */
     @Override
 	public void Adicionar(T objeto) {
 		NodoSE<T> nuevo = new NodoSE<>(objeto);
@@ -73,11 +54,6 @@ public class ListaSE<T> implements InterfazLista<T>
 		}
 	}
 
-    /**
-     *
-     * @param pos
-     * @throws Exception
-     */
     @Override
 	public void Eliminar(int pos) throws Exception {
 		if (EsVacia())
@@ -97,12 +73,6 @@ public class ListaSE<T> implements InterfazLista<T>
 
 	}
 
-    /**
-     *
-     * @param objeto
-     * @param pos
-     * @throws Exception
-     */
     @Override
 	public void Insertar(T objeto, int pos) throws Exception {
 		if (pos < 0 || pos >= Longitud())
@@ -121,12 +91,6 @@ public class ListaSE<T> implements InterfazLista<T>
 		}
 	}
 
-    /**
-     *
-     * @param pos
-     * @return
-     * @throws Exception
-     */
     @Override
 	public T Obtener(int pos) throws Exception {
 		if (pos < 0 || pos >= Longitud())
@@ -139,11 +103,6 @@ public class ListaSE<T> implements InterfazLista<T>
 		return cursor.getDato();
 	}
 
-    /**
-     *
-     * @param x
-     * @return
-     */
     @Override
 	public int Buscar(T x) {
 		NodoSE<T> cursor = cabeza;
@@ -171,5 +130,4 @@ public class ListaSE<T> implements InterfazLista<T>
             }
             return listaInvertida;
         }
-        
 }

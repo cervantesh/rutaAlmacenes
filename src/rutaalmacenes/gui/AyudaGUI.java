@@ -6,14 +6,12 @@
 package rutaalmacenes.gui;
 import rutaalmacenes.logic.*;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 
 
 /**
  *
- * @author Seelee
+ * @author CDJ
  */
 public class AyudaGUI {
     
@@ -28,7 +26,6 @@ public class AyudaGUI {
             throw new Exception("No existe textfield");
         }
     }
-        
     
     static public void llenarComboBox(javax.swing.JComboBox jc, Grafo  grafo) throws Exception
     {
@@ -42,8 +39,5 @@ public class AyudaGUI {
 
             }
         jc.setModel(model);
-       
     }
-                
-    
 }
