@@ -114,4 +114,20 @@ public class ListaSE<T> implements InterfazLista<T>
 		}
 		return -1;
 	}
+        
+        /**
+         * Retorna la lista en orden inverso
+         * @return listaInvertida
+         */
+        public ListaSE<T> InvertirLista() throws Exception
+        {
+            ListaSE<T> listaInvertida;
+            listaInvertida = new ListaSE<T>();
+            
+            for (int i = this.Longitud() ; i > 0; i--) {
+                listaInvertida.Adicionar(this.Obtener(i));
+            }
+            return listaInvertida;
+        }
+        
 }

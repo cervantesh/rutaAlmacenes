@@ -13,7 +13,7 @@ import java.util.Objects;
  * @param <T>
  */
 
-public abstract class Vertice<T extends Comparable<T> & Inicializacion<T>> 
+public abstract class Vertice<T extends Comparable<T>> 
                       implements Comparable<Vertice<T>>  {
 
     private Vertice anterior;
@@ -36,10 +36,7 @@ public abstract class Vertice<T extends Comparable<T> & Inicializacion<T>>
         return pesoMin;
     }
     
-    public void init(T infinito)
-    {
-       this.pesoMin.init(infinito);
-    }
+  
 
     @Override
     public int hashCode() {
