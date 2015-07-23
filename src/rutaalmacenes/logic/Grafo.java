@@ -500,5 +500,31 @@ public class Grafo<T extends Vertice & Comparable> implements InterfazGrafo<T> {
         
     }
     
+    public void calcularCamino(Almacen source) throws Exception
+    {
+//       source.setPesoMin(0);
+//       HeapPrioridad<Almacen> heap = new HeapPrioridad<>();
+//       heap.insertar(source);
+//       while(!heap.esVacio())
+//       {
+//           Almacen U =  heap.obtenerPrimero();
+//           ListaSE<NodoAP> listAdyac = this.Adyacentes(U);
+//           NodoSE<NodoAP> nodeCursor = listAdyac.getCabeza();
+//           while(nodeCursor!=null)
+//           {
+//               Almacen V = (Almacen) this.getVertice(nodeCursor.getDato().getPosicionAdyac());
+//               Integer minutes =  Minutes.minutesBetween(U.getHoraDeApertura(), V.getHoraDeApertura()).getMinutes();
+//               Integer TiempoHacia = U.getPesoMin() + minutes;
+//               if(TiempoHacia < V.getPesoMin())
+//               {
+//                   heap.eliminar(V);
+//                   V.setPesoMin(TiempoHacia);
+//                   V.setAnterior(U);
+//                   heap.insertar(V);
+//               }
+//               
+//           }
+//       }
+    }
     
 }
