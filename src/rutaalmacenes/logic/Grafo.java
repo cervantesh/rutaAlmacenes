@@ -8,7 +8,7 @@ import java.time.LocalTime;
  * @author CDJ
  * @param <T>
  */
-public class Grafo<T> implements InterfazGrafo<T> {
+public class Grafo<T extends Almacen & Comparable> implements InterfazGrafo<T> {
     
     private ListaSE<T> lista;
     private ListaSE<ListaSE<NodoAP>> adyacencia;
@@ -344,14 +344,22 @@ public class Grafo<T> implements InterfazGrafo<T> {
         return menor;
     }
     
-//    public T VerticeMenorHoraApertura(T v) throws Exception
-//    {
-//        ListaSE<NodoAP> adyacentes=VerticesAdyacentes(v);
-//        
-//        T menor=lista.Obtener(adyacentes.Obtener(0).getAdyacenciaNodo());
-//        
-//        
-//        
-//        return menor;
-//    }
+    public void calcularCamino(T source)
+    {
+        HeapPrioridad<Almacen> heapPrioridad;
+        
+    }
+    
+    public ListaSE<T> getCaminoMasCorto(T v) throws Exception
+    {
+       
+        ListaSE<T> camino = new ListaSE<>();
+        for (T v1 = v; v1 != null; v1 = (T) v1.getAnterior())
+            camino.Adicionar(v1); 
+        
+        return camino.InvertirLista();
+        
+    }
+    
+    
 }

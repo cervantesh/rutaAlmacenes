@@ -13,7 +13,7 @@ import java.util.Objects;
  * @param <T>
  */
 
-public abstract class Vertice<T extends Comparable<T>> 
+public   class Vertice<T extends Comparable<T>> 
                       implements Comparable<Vertice<T>>  {
 
     private Vertice anterior;
